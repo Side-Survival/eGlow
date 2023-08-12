@@ -25,8 +25,8 @@ public class EGlowEventListener113AndAbove implements Listener {
 	public void PlayerPotionEvent(EntityPotionEffectEvent e) {
 		Entity entity = e.getEntity();
 
-		if (entity instanceof Player) {
-			IEGlowPlayer ep = DataManager.getEGlowPlayer((Player) entity);
+		if (entity instanceof Player player) {
+			IEGlowPlayer ep = DataManager.getEGlowPlayer(player);
 
 			new BukkitRunnable() {
 				@Override
@@ -41,7 +41,7 @@ public class EGlowEventListener113AndAbove implements Listener {
 								ep.setGlowDisableReason(GlowDisableReason.INVISIBLE, false);
 
 								if (MainConfig.SETTINGS_NOTIFICATIONS_INVISIBILITY.getBoolean())
-									ChatUtil.sendMsg(ep.getPlayer(), Message.INVISIBILITY_DISABLED.get(), true);
+									ChatUtil.sendMsg(ep.getPlayer(), Message.INVISIBILITY_DISABLED.get(player), true);
 								return;
 							}
 						}
@@ -51,7 +51,7 @@ public class EGlowEventListener113AndAbove implements Listener {
 								if (ep.setGlowDisableReason(GlowDisableReason.NONE, false)) {
 									ep.activateGlow();
 									if (MainConfig.SETTINGS_NOTIFICATIONS_INVISIBILITY.getBoolean())
-										ChatUtil.sendMsg(ep.getPlayer(), Message.INVISIBILITY_ENABLED.get(), true);
+										ChatUtil.sendMsg(ep.getPlayer(), Message.INVISIBILITY_ENABLED.get(player), true);
 								}
 							}
 						}

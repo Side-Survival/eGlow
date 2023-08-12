@@ -1,6 +1,7 @@
 package me.MrGraycat.eGlow.Manager.Interface;
 
 import me.MrGraycat.eGlow.Addon.Citizens.EGlowCitizensTrait;
+import me.MrGraycat.eGlow.Config.EGlowMainConfig;
 import me.MrGraycat.eGlow.Config.EGlowMessageConfig.Message;
 import me.MrGraycat.eGlow.EGlow;
 import me.MrGraycat.eGlow.Manager.DataManager;
@@ -80,8 +81,8 @@ public class IEGlowEffect {
 			
 			if (eglowEntity != null) {
 				eglowEntity.disableGlow(true);
-				if (entity instanceof Player)
-					ChatUtil.sendMsg(eglowEntity.getPlayer(), Message.GLOW_REMOVED.get(), true);
+				if (entity instanceof Player player)
+					ChatUtil.sendMsg(eglowEntity.getPlayer(), Message.GLOW_REMOVED.get(player), true);
 			}
 			getActiveEntities().remove(entity);
 		}
@@ -170,8 +171,26 @@ public class IEGlowEffect {
 		return this.effectName;
 	}
 	
-	public String getDisplayName() {
-		return this.displayName;
+	public String getDisplayName(Player player) {
+		if (EGlowMainConfig.MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) {
+			return Message.GUI_COLOR.get(player, displayName);
+		} else {
+			if (effectName.startsWith("blink")) {
+				if (effectName.endsWith("slow")) {
+					return Message.COLOR.get(player, displayName) + " §f(" + Message.COLOR.get(player, "effect-blink") + " " + Message.COLOR.get(player, "slow") + "§f)";
+				} else {
+					return Message.COLOR.get(player, displayName) + " §f(" + Message.COLOR.get(player, "effect-blink") + " " + Message.COLOR.get(player, "fast") + "§f)";
+				}
+			} else if (effectName.startsWith("rainbow")) {
+				if (effectName.endsWith("slow")) {
+					return Message.COLOR.get(player, "effect-rainbow") + " §f(" + Message.COLOR.get(player, "slow") + "§f)";
+				} else {
+					return Message.COLOR.get(player, "effect-rainbow") + " §f(" + Message.COLOR.get(player, "fast") + "§f)";
+				}
+			} else {
+				return Message.COLOR.get(player, displayName);
+			}
+		}
 	}
 	
 	public String getPermission() {

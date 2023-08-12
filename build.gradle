@@ -8,8 +8,8 @@ plugins {
 group = 'com.github.mrgraycat'
 version = '3.2.5-SNAPSHOT'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 compileJava.options.encoding = 'UTF-8'
 
 repositories {
@@ -55,6 +55,7 @@ dependencies {
     compileOnly('io.netty:netty-transport:4.1.86.Final')
     compileOnly('it.unimi.dsi:fastutil:8.5.11')
     compileOnly('com.googlecode.json-simple:json-simple:1.1.1')
+    implementation files('depend/SideLang.jar')
     //compileOnly fileTree(dir: '/lib/')
 }
 

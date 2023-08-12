@@ -47,13 +47,13 @@ public class LibDisguiseAddon implements Listener {
 				try {
 					Entity entity = event.getEntity();
 
-					if (entity instanceof Player) {
-						IEGlowPlayer eGlowPlayer = DataManager.getEGlowPlayer((Player) entity);
+					if (entity instanceof Player player) {
+						IEGlowPlayer eGlowPlayer = DataManager.getEGlowPlayer(player);
 
 						if (eGlowPlayer != null && eGlowPlayer.isGlowing()) {
 							eGlowPlayer.setGlowDisableReason(GlowDisableReason.DISGUISE, false);
 							eGlowPlayer.disableGlow(false);
-							ChatUtil.sendMsg(eGlowPlayer.getPlayer(), Message.DISGUISE_BLOCKED.get(), true);
+							ChatUtil.sendMsg(eGlowPlayer.getPlayer(), Message.DISGUISE_BLOCKED.get(player), true);
 						}
 					}
 				} catch (NoSuchMethodError error) {
@@ -72,13 +72,13 @@ public class LibDisguiseAddon implements Listener {
 				try {
 					Entity entity = event.getDisguised();
 
-					if (entity instanceof Player) {
-						IEGlowPlayer eGlowPlayer = DataManager.getEGlowPlayer((Player) entity);
+					if (entity instanceof Player player) {
+						IEGlowPlayer eGlowPlayer = DataManager.getEGlowPlayer(player);
 
 						if (eGlowPlayer != null && eGlowPlayer.getGlowDisableReason().equals(GlowDisableReason.DISGUISE)) {
 							if (eGlowPlayer.setGlowDisableReason(GlowDisableReason.NONE, false)) {
 								eGlowPlayer.activateGlow();
-								ChatUtil.sendMsg(eGlowPlayer.getPlayer(), Message.DISGUISE_ALLOWED.get(), true);
+								ChatUtil.sendMsg(eGlowPlayer.getPlayer(), Message.DISGUISE_ALLOWED.get(player), true);
 							}
 						}
 					}

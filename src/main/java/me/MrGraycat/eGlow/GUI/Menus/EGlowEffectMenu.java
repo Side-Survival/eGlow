@@ -27,7 +27,7 @@ public class EGlowEffectMenu extends PaginatedMenu {
 
 	@Override
 	public String getMenuName() {
-		return ChatUtil.translateColors(((MainConfig.SETTINGS_GUI_ADD_PREFIX.getBoolean()) ? Message.GUI_TITLE.get() : Message.PREFIX.get() + Message.GUI_TITLE.get()));
+		return ChatUtil.translateColors(((MainConfig.SETTINGS_GUI_ADD_PREFIX.getBoolean()) ? Message.GUI_TITLE.get(getIPlayer()) : Message.PREFIX.get(getIPlayer()) + Message.GUI_TITLE.get(getIPlayer())));
 	}
 
 	@Override
@@ -53,28 +53,28 @@ public class EGlowEffectMenu extends PaginatedMenu {
 				if (eGlowPlayer.getPlayer().hasPermission("eglow.command.toggle")) {
 					if (eGlowPlayer.isGlowing()) {
 						eGlowPlayer.disableGlow(false);
-						ChatUtil.sendMsgFromGUI(player, Message.DISABLE_GLOW.get());
+						ChatUtil.sendMsgFromGUI(player, Message.DISABLE_GLOW.get(player));
 					} else {
 						if (eGlowPlayer.getEffect() == null || eGlowPlayer.getEffect().getName().equals("none")) {
-							ChatUtil.sendMsgFromGUI(player, Message.NO_LAST_GLOW.get());
+							ChatUtil.sendMsgFromGUI(player, Message.NO_LAST_GLOW.get(player));
 							return;
 						} else {
 							if (eGlowPlayer.getGlowDisableReason().equals(GlowDisableReason.DISGUISE)) {
-								ChatUtil.sendMsgFromGUI(player, Message.DISGUISE_BLOCKED.get());
+								ChatUtil.sendMsgFromGUI(player, Message.DISGUISE_BLOCKED.get(player));
 								return;
 							}
 
 							if (eGlowPlayer.getPlayer().hasPermission(eGlowPlayer.getEffect().getPermission())) {
 								eGlowPlayer.activateGlow();
 							} else {
-								ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get());
+								ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get(player));
 								return;
 							}
-							ChatUtil.sendMsgFromGUI(player, Message.NEW_GLOW.get(eGlowPlayer.getLastGlowName()));
+							ChatUtil.sendMsgFromGUI(player, Message.NEW_GLOW.get(player, eGlowPlayer.getLastGlowName()));
 						}
 					}
 				} else {
-					ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get());
+					ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get(player));
 				}
 				break;
 			case (33):
@@ -140,7 +140,7 @@ public class EGlowEffectMenu extends PaginatedMenu {
 				ArrayList<String> lores = new ArrayList<>();
 
 				for (String lore : Effect.GET_LORES.getList(effect)) {
-					lore = ChatUtil.translateColors(lore.replace("%effect_name%", Eeffect.getDisplayName()).replace("%effect_has_permission%", hasPermission(p, Eeffect.getPermission())));
+					lore = ChatUtil.translateColors(lore.replace("%effect_name%", Eeffect.getDisplayName(player)).replace("%effect_has_permission%", hasPermission(p, Eeffect.getPermission())));
 					lores.add(lore);
 				}
 

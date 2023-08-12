@@ -20,7 +20,7 @@ public class EGlowMainMenu extends Menu {
 
 	@Override
 	public String getMenuName() {
-		return ChatUtil.translateColors(((MainConfig.SETTINGS_GUI_ADD_PREFIX.getBoolean()) ? Message.GUI_TITLE.get() : Message.PREFIX.get() + Message.GUI_TITLE.get()));
+		return ChatUtil.translateColors(((MainConfig.SETTINGS_GUI_ADD_PREFIX.getBoolean()) ? Message.GUI_TITLE.get(getIPlayer()) : Message.PREFIX.get(getIPlayer()) + Message.GUI_TITLE.get(getIPlayer())));
 	}
 
 	@Override
@@ -94,32 +94,32 @@ public class EGlowMainMenu extends Menu {
 				if (eGlowPlayer.getPlayer().hasPermission("eglow.command.toggle")) {
 					if (eGlowPlayer.isGlowing()) {
 						eGlowPlayer.disableGlow(false);
-						ChatUtil.sendMsgFromGUI(player, Message.DISABLE_GLOW.get());
+						ChatUtil.sendMsgFromGUI(player, Message.DISABLE_GLOW.get(player));
 					} else {
 						if (eGlowPlayer.getEffect() == null || eGlowPlayer.getEffect().getName().equals("none")) {
-							ChatUtil.sendMsgFromGUI(player, Message.NO_LAST_GLOW.get());
+							ChatUtil.sendMsgFromGUI(player, Message.NO_LAST_GLOW.get(player));
 							return;
 						} else {
 							if (eGlowPlayer.getGlowDisableReason().equals(GlowDisableReason.DISGUISE)) {
-								ChatUtil.sendMsgFromGUI(player, Message.DISGUISE_BLOCKED.get());
+								ChatUtil.sendMsgFromGUI(player, Message.DISGUISE_BLOCKED.get(player));
 								return;
 							}
 
 							if (eGlowPlayer.getGlowDisableReason().equals(GlowDisableReason.INVISIBLE)) {
-								ChatUtil.sendMsgFromGUI(player, Message.INVISIBILITY_BLOCKED.get());
+								ChatUtil.sendMsgFromGUI(player, Message.INVISIBILITY_BLOCKED.get(player));
 							}
 
 							if (eGlowPlayer.getPlayer().hasPermission(eGlowPlayer.getEffect().getPermission()) || eGlowPlayer.isForcedGlow(eGlowPlayer.getEffect())) {
 								eGlowPlayer.activateGlow();
 							} else {
-								ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get());
+								ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get(player));
 								return;
 							}
-							ChatUtil.sendMsgFromGUI(player, Message.NEW_GLOW.get(eGlowPlayer.getLastGlowName()));
+							ChatUtil.sendMsgFromGUI(player, Message.NEW_GLOW.get(player, eGlowPlayer.getLastGlowName()));
 						}
 					}
 				} else {
-					ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get());
+					ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get(player));
 				}
 				break;
 			case (31):

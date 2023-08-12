@@ -73,36 +73,36 @@ public class PlaceholderAPIAddon extends PlaceholderExpansion {
 			case ("colorchar"):
 				return (eGlowPlayer.getGlowStatus() && !eGlowPlayer.getFakeGlowStatus()) ? String.valueOf(eGlowPlayer.getActiveColor().getChar()) : "r";
 			case ("activeglow"):
-				return (eGlowPlayer.isGlowing()) ? ChatUtil.getEffectChatName(eGlowPlayer) : Message.COLOR.get("none");
+				return (eGlowPlayer.isGlowing()) ? ChatUtil.getEffectChatName(eGlowPlayer) : Message.COLOR.get(player, "none");
 			case ("activeglow_raw"):
-				return (eGlowPlayer.isGlowing()) ? ChatUtil.setToBasicName(ChatUtil.getEffectChatName(eGlowPlayer)) : ChatUtil.setToBasicName(Message.COLOR.get("none"));
+				return (eGlowPlayer.isGlowing()) ? ChatUtil.setToBasicName(ChatUtil.getEffectChatName(eGlowPlayer)) : ChatUtil.setToBasicName(Message.COLOR.get(player, "none"));
 			case ("lastglow"):
 				return (eGlowPlayer.getLastGlowName());
 			case ("lastglow_raw"):
 				return ChatUtil.setToBasicName(eGlowPlayer.getLastGlowName());
 			case ("glow_speed"):
-				return getSpeedFromEffect(eGlowPlayer.getEffect(), false);
+				return getSpeedFromEffect(player, eGlowPlayer.getEffect(), false);
 			case ("glow_speed_raw"):
-				return getSpeedFromEffect(eGlowPlayer.getEffect(), true);
+				return getSpeedFromEffect(player, eGlowPlayer.getEffect(), true);
 			case ("glowstatus"):
-				return (eGlowPlayer.getGlowStatus() && !eGlowPlayer.getFakeGlowStatus()) ? Message.GUI_YES.get() : Message.GUI_NO.get();
+				return (eGlowPlayer.getGlowStatus() && !eGlowPlayer.getFakeGlowStatus()) ? Message.GUI_YES.get(player) : Message.GUI_NO.get(player);
 			case ("glowstatus_raw"):
 				return (eGlowPlayer.getGlowStatus() && !eGlowPlayer.getFakeGlowStatus()) ? "true" : "false";
 			case ("glowstatus_join"):
-				return (eGlowPlayer.getGlowOnJoin()) ? Message.GUI_YES.get() : Message.GUI_NO.get();
+				return (eGlowPlayer.getGlowOnJoin()) ? Message.GUI_YES.get(player) : Message.GUI_NO.get(player);
 			case ("glowstatus_join_raw"):
 				return (eGlowPlayer.getGlowOnJoin()) ? "true" : "false";
 			case ("glow_visibility"):
-				return (eGlowPlayer.getGlowVisibility().equals(EnumUtil.GlowVisibility.UNSUPPORTEDCLIENT)) ? Message.VISIBILITY_UNSUPPORTED.get() : Message.valueOf("VISIBILITY_" + eGlowPlayer.getGlowVisibility().toString()).get();
+				return (eGlowPlayer.getGlowVisibility().equals(EnumUtil.GlowVisibility.UNSUPPORTEDCLIENT)) ? Message.VISIBILITY_UNSUPPORTED.get(player) : Message.valueOf("VISIBILITY_" + eGlowPlayer.getGlowVisibility().toString()).get(player);
 			default:
 				boolean raw = identifier.toLowerCase().endsWith("_raw");
 				if (identifier.toLowerCase().contains("has_permission_")) {
 					IEGlowEffect effect = DataManager.getEGlowEffect(identifier.toLowerCase().replace("has_permission_", "").replace("_raw", ""));
 					if (effect != null) {
 						if (player.hasPermission(effect.getPermission())) {
-							return (raw) ? "true" : Message.GUI_YES.get();
+							return (raw) ? "true" : Message.GUI_YES.get(player);
 						} else {
-							return (raw) ? "false" : Message.GUI_NO.get();
+							return (raw) ? "false" : Message.GUI_NO.get(player);
 						}
 					} else {
 						return "Invalid effect";
@@ -112,21 +112,21 @@ public class PlaceholderAPIAddon extends PlaceholderExpansion {
 		return null;
 	}
 
-	private String getSpeedFromEffect(IEGlowEffect effect, boolean raw) {
+	private String getSpeedFromEffect(Player player, IEGlowEffect effect, boolean raw) {
 		if (effect == null) {
-			return (raw) ? "none" : Message.COLOR.get("none");
+			return (raw) ? "none" : Message.COLOR.get(player, "none");
 		}
 
 		String effectName = effect.getName();
 
 		if (effectName.contains("slow")) {
-			return (raw) ? "slow" : Message.COLOR.get("slow");
+			return (raw) ? "slow" : Message.COLOR.get(player, "slow");
 		}
 
 		if (effectName.contains("fast")) {
-			return (raw) ? "fast" : Message.COLOR.get("fast");
+			return (raw) ? "fast" : Message.COLOR.get(player, "fast");
 		}
 
-		return (raw) ? "none" : Message.COLOR.get("none");
+		return (raw) ? "none" : Message.COLOR.get(player, "none");
 	}
 }

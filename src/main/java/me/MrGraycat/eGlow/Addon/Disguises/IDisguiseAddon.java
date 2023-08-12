@@ -53,7 +53,7 @@ public class IDisguiseAddon implements Listener {
 		if (eGlowPlayer != null && eGlowPlayer.isGlowing()) {
 			eGlowPlayer.setGlowDisableReason(GlowDisableReason.DISGUISE, false);
 			eGlowPlayer.disableGlow(false);
-			ChatUtil.sendMsg(eGlowPlayer.getPlayer(), Message.DISGUISE_BLOCKED.get(), true);
+			ChatUtil.sendMsg(eGlowPlayer.getPlayer(), Message.DISGUISE_BLOCKED.get(event.getPlayer()), true);
 		}
 	}
 
@@ -64,7 +64,7 @@ public class IDisguiseAddon implements Listener {
 		if (eGlowPlayer != null && eGlowPlayer.getGlowDisableReason().equals(GlowDisableReason.DISGUISE)) {
 			if (eGlowPlayer.setGlowDisableReason(GlowDisableReason.NONE, false)) {
 				eGlowPlayer.activateGlow();
-				ChatUtil.sendMsg(eGlowPlayer.getPlayer(), Message.DISGUISE_ALLOWED.get(), true);
+				ChatUtil.sendMsg(eGlowPlayer.getPlayer(), Message.DISGUISE_ALLOWED.get(event.getPlayer()), true);
 			}
 		}
 	}

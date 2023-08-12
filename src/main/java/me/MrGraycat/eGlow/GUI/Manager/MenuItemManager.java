@@ -124,7 +124,7 @@ public class MenuItemManager extends MenuManager {
 	 * @return Playerskull of the player
 	 */
 	public ItemStack createPlayerSkull(IEGlowPlayer player) {
-		ItemStack item = createItem(Material.valueOf(PLAYER_HEAD), Message.GUI_SETTINGS_NAME.get(), 3, createInfoLore(player));
+		ItemStack item = createItem(Material.valueOf(PLAYER_HEAD), Message.GUI_SETTINGS_NAME.get(player.getPlayer()), 3, createInfoLore(player));
 		
 		if (!MainConfig.SETTINGS_GUI_RENDER_SKULLS.getBoolean())
 			return item;
@@ -156,7 +156,7 @@ public class MenuItemManager extends MenuManager {
 	 * @return colored leather chestplate
 	 */
 	public ItemStack createLeatherColor(IEGlowPlayer player, String color, int red, int green, int blue) {
-		ItemStack item = createItem(Material.LEATHER_CHESTPLATE, Message.GUI_COLOR.get(color), 0, createColorLore(player, color));
+		ItemStack item = createItem(Material.LEATHER_CHESTPLATE, Message.GUI_COLOR.get(player.getPlayer(), color), 0, createColorLore(player, color));
 		LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
 		
 		Objects.requireNonNull(meta, "Unable to set item color because ItemMeta is null").setColor(Color.fromRGB(red, green, blue));
@@ -177,12 +177,12 @@ public class MenuItemManager extends MenuManager {
 	public ItemStack createGlowingStatus(IEGlowPlayer player) {
 		List<String> prelores = new ArrayList<>();
 		
-		prelores.add(Message.GUI_GLOWING.get() + ((player.isGlowing()) ? Message.GUI_YES.get() : Message.GUI_NO.get()));
-		prelores.add(Message.GUI_LAST_GLOW.get() + ((player.getEffect() == null) ? Message.GUI_NOT_AVAILABLE.get() : player.getEffect().getDisplayName()));
-		prelores.add(Message.GUI_CLICK_TO_TOGGLE.get());
+		prelores.add(Message.GUI_GLOWING.get(player.getPlayer()) + ((player.isGlowing()) ? Message.GUI_YES.get(player.getPlayer()) : Message.GUI_NO.get(player.getPlayer())));
+		prelores.add(Message.GUI_LAST_GLOW.get(player.getPlayer()) + ((player.getEffect() == null) ? Message.GUI_NOT_AVAILABLE.get(player.getPlayer()) : player.getEffect().getDisplayName(player.getPlayer())));
+		prelores.add(Message.GUI_CLICK_TO_TOGGLE.get(player.getPlayer()));
 		
 		String[] lores = new String[prelores.size()];
-		return (player.isGlowing()) ? createItem(Material.GLOWSTONE_DUST, Message.GUI_GLOW_ITEM_NAME.get(), 0, prelores.toArray(lores)) : createItem(Material.valueOf(GUNPOWDER), Message.GUI_GLOW_ITEM_NAME.get(), 0, prelores.toArray(lores));
+		return (player.isGlowing()) ? createItem(Material.GLOWSTONE_DUST, Message.GUI_GLOW_ITEM_NAME.get(player.getPlayer()), 0, prelores.toArray(lores)) : createItem(Material.valueOf(GUNPOWDER), Message.GUI_GLOW_ITEM_NAME.get(player.getPlayer()), 0, prelores.toArray(lores));
 	}
 	
 	/**
@@ -211,10 +211,10 @@ public class MenuItemManager extends MenuManager {
 		IEGlowEffect eglowColor = DataManager.getEGlowEffect(color.replace("-", ""));
 		IEGlowEffect eglowEffect = DataManager.getEGlowEffect("blink" + color.replace("-", "") + "slow");
 		
-		prelores.add(Message.GUI_LEFT_CLICK.get() + Message.COLOR.get(color));
-		prelores.add(Message.GUI_COLOR_PERMISSION.get() + hasPermission(player, Objects.requireNonNull(eglowColor, "Unable to retrieve permission from effect").getPermission()));
-		prelores.add(Message.GUI_RIGHT_CLICK.get() + Message.COLOR.get("effect-blink") + " " + Message.COLOR.get(color));
-		prelores.add(Message.GUI_BLINK_PERMISSION.get() + hasPermission(player, Objects.requireNonNull(eglowEffect, "Unable to retrieve permission from effect").getPermission()));
+		prelores.add(Message.GUI_LEFT_CLICK.get(player.getPlayer()) + Message.COLOR.get(player.getPlayer(), color));
+		prelores.add(Message.GUI_COLOR_PERMISSION.get(player.getPlayer()) + hasPermission(player, Objects.requireNonNull(eglowColor, "Unable to retrieve permission from effect").getPermission()));
+		prelores.add(Message.GUI_RIGHT_CLICK.get(player.getPlayer()) + Message.COLOR.get(player.getPlayer(), "effect-blink") + " " + Message.COLOR.get(player.getPlayer(), color));
+		prelores.add(Message.GUI_BLINK_PERMISSION.get(player.getPlayer()) + hasPermission(player, Objects.requireNonNull(eglowEffect, "Unable to retrieve permission from effect").getPermission()));
 		
 		String[] lores = new String[prelores.size()];
 		return prelores.toArray(lores);
@@ -228,9 +228,9 @@ public class MenuItemManager extends MenuManager {
 	private String[] createInfoLore(IEGlowPlayer player) {
 		List<String> prelores = new ArrayList<>();
 		
-		prelores.add(Message.GUI_LAST_GLOW.get() + ChatUtil.getEffectChatName(player));
-		prelores.add(Message.GUI_GLOW_ON_JOIN.get() + ((player.getGlowOnJoin()) ? Message.GUI_YES.get() : Message.GUI_NO.get()));
-		prelores.add(Message.GUI_CLICK_TO_TOGGLE.get());
+		prelores.add(Message.GUI_LAST_GLOW.get(player.getPlayer()) + ChatUtil.getEffectChatName(player));
+		prelores.add(Message.GUI_GLOW_ON_JOIN.get(player.getPlayer()) + ((player.getGlowOnJoin()) ? Message.GUI_YES.get(player.getPlayer()) : Message.GUI_NO.get(player.getPlayer())));
+		prelores.add(Message.GUI_CLICK_TO_TOGGLE.get(player.getPlayer()));
 
 		String[] lores = new String[prelores.size()];
 		return prelores.toArray(lores);
@@ -248,10 +248,10 @@ public class MenuItemManager extends MenuManager {
 			String effect = player.getEffect().getName();
 				
 			if (effect.contains("slow"))
-				prelores.add(Message.GUI_SPEED.get() + Message.COLOR.get("slow"));
+				prelores.add(Message.GUI_SPEED.get(player.getPlayer()) + Message.COLOR.get(player.getPlayer(), "slow"));
 				
 			if (effect.contains("fast"))
-				prelores.add(Message.GUI_SPEED.get() + Message.COLOR.get("fast"));			
+				prelores.add(Message.GUI_SPEED.get(player.getPlayer()) + Message.COLOR.get(player.getPlayer(), "fast"));
 		}
 		
 		String[] lores = new String[prelores.size()];
@@ -275,7 +275,7 @@ public class MenuItemManager extends MenuManager {
 	 */
 	public String hasPermission(IEGlowPlayer player, String permission) {
 		Player p = player.getPlayer();
-		return (p.hasPermission(permission) || p.hasPermission("eglow.effect.*") || p.isOp()) ? Message.GUI_YES.get() : Message.GUI_NO.get();
+		return (p.hasPermission(permission) || p.hasPermission("eglow.effect.*") || p.isOp()) ? Message.GUI_YES.get(player.getPlayer()) : Message.GUI_NO.get(player.getPlayer());
 	}
 
 	public EGlow getInstance() {

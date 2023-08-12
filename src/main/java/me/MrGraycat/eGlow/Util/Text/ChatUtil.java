@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -59,13 +60,21 @@ public class ChatUtil {
 		return text.replace("&", "§");
 	}
 
+	public static List<String> translateColors(List<String> input) {
+		for (int i = 0; i < input.size(); i++) {
+			input.set(i, translateColors(input.get(i)));
+		}
+
+		return input;
+	}
+
 	public static void sendPlainMsg(Object sender, String message, boolean withPrefix) {
 		if (!message.isEmpty()) {
-			message = translateColors(((withPrefix) ? Message.PREFIX.get() : "") + message);
-
-			if (sender instanceof Player) {
-				((Player) sender).sendMessage(message);
+			if (sender instanceof Player player) {
+				message = translateColors(((withPrefix) ? Message.PREFIX.get(player) : "") + message);
+				player.sendMessage(message);
 			} else {
+				message = translateColors(((withPrefix) ? Message.PREFIX.get((Player) null) : "") + message);
 				((CommandSender) sender).sendMessage(message);
 			}
 		}
@@ -81,22 +90,22 @@ public class ChatUtil {
 
 	public static void sendMsg(Object sender, String message, boolean withPrefix) {
 		if (!message.isEmpty()) {
-			message = translateColors(((withPrefix) ? Message.PREFIX.get() : "") + message);
-
-			if (sender instanceof Player) {
+			if (sender instanceof Player player) {
+				message = translateColors(((withPrefix) ? Message.PREFIX.get(player) : "") + message);
 				if (MainConfig.ACTIONBARS_ENABLE.getBoolean()) {
-					sendActionbar((Player) sender, message);
+					sendActionbar(player, message);
 				} else {
-					((Player) sender).sendMessage(message);
+					player.sendMessage(message);
 				}
 			} else {
+				message = translateColors(((withPrefix) ? Message.PREFIX.get((Player) null) : "") + message);
 				((CommandSender) sender).sendMessage(message);
 			}
 		}
 	}
 
 	public static void sendToConsole(String message, boolean withPrefix) {
-		Bukkit.getConsoleSender().sendMessage(translateColors(((withPrefix) ? Message.PREFIX.get() : "") + message));
+		Bukkit.getConsoleSender().sendMessage(translateColors(((withPrefix) ? Message.PREFIX.get((Player) null) : "") + message));
 	}
 
 	private static void sendActionbar(Player player, String message) {
@@ -119,10 +128,10 @@ public class ChatUtil {
 	}
 
 	public static String getEffectChatName(IEGlowPlayer entity) {
-		return (entity.getEffect() == null) ? Message.GUI_NOT_AVAILABLE.get() : entity.getEffect().getDisplayName();
+		return (entity.getEffect() == null) ? Message.GUI_NOT_AVAILABLE.get(entity.getPlayer()) : entity.getEffect().getDisplayName(entity.getPlayer());
 	}
 
 	public static String getEffectName(String effect) {
-		return "&e" + effect + " &f(" + Objects.requireNonNull(DataManager.getEGlowEffect(effect), "Unable to retrieve effect from given name").getDisplayName() + "&f)";
+		return "&e" + effect + " &f(" + Objects.requireNonNull(DataManager.getEGlowEffect(effect), "Unable to retrieve effect from given name").getDisplayName(null) + "&f)";
 	}
 }

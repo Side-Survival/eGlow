@@ -8,6 +8,7 @@ import me.MrGraycat.eGlow.Util.EnumUtil.GlowDisableReason;
 import me.MrGraycat.eGlow.Util.EnumUtil.GlowVisibility;
 import me.MrGraycat.eGlow.Util.Text.ChatUtil;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class GUICommand extends SubCommand {
 
@@ -38,21 +39,23 @@ public class GUICommand extends SubCommand {
 
 	@Override
 	public void perform(CommandSender sender, IEGlowPlayer ePlayer, String[] args) {
+		Player pSender = (sender instanceof Player player) ? player : null;
+
 		if (ePlayer.getGlowVisibility().equals(GlowVisibility.UNSUPPORTEDCLIENT))
-			ChatUtil.sendPlainMsg(sender, Message.UNSUPPORTED_GLOW.get(), true);
+			ChatUtil.sendPlainMsg(sender, Message.UNSUPPORTED_GLOW.get(pSender), true);
 
 		if (ePlayer.isInBlockedWorld()) {
-			ChatUtil.sendMsg(sender, Message.WORLD_BLOCKED.get(), true);
+			ChatUtil.sendMsg(sender, Message.WORLD_BLOCKED.get(pSender), true);
 			return;
 		}
 
 		if (ePlayer.isInvisible()) {
-			ChatUtil.sendMsg(sender, Message.INVISIBILITY_BLOCKED.get(), true);
+			ChatUtil.sendMsg(sender, Message.INVISIBILITY_BLOCKED.get(pSender), true);
 			return;
 		}
 
 		if (ePlayer.getGlowDisableReason().equals(GlowDisableReason.DISGUISE)) {
-			ChatUtil.sendMsg(sender, Message.DISGUISE_BLOCKED.get(), true);
+			ChatUtil.sendMsg(sender, Message.DISGUISE_BLOCKED.get(pSender), true);
 			return;
 		}
 

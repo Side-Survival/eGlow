@@ -6,6 +6,7 @@ import me.MrGraycat.eGlow.Command.SubCommands.Admin.SetCommand;
 import me.MrGraycat.eGlow.Command.SubCommands.Admin.UnsetCommand;
 import me.MrGraycat.eGlow.Command.SubCommands.*;
 import me.MrGraycat.eGlow.Config.EGlowMainConfig.MainConfig;
+import me.MrGraycat.eGlow.Config.EGlowMessageConfig;
 import me.MrGraycat.eGlow.Config.EGlowMessageConfig.Message;
 import me.MrGraycat.eGlow.EGlow;
 import me.MrGraycat.eGlow.Event.EGlowEventListener;
@@ -64,9 +65,16 @@ public class EGlowCommand implements CommandExecutor, TabExecutor {
 			IEGlowPlayer ePlayer = null;
 			String[] argsCopy = args.clone();
 
+			Player pSender = (sender instanceof Player player) ? player : null;
+
 			//Get the correct subcommand
 			if (args.length == 0)
 				args = new String[]{"gui"};
+			else if (args.length == 1 && args[0].equalsIgnoreCase("updatelang")) {
+				EGlowMessageConfig.updateLang();
+				sender.sendMessage("Default lang map reloaded!");
+				return true;
+			}
 
 			if (DataManager.isValidEffect(args[0], true) || args[0].equalsIgnoreCase("blink") || DataManager.isValidEffect(args[0], false) || args[0].equalsIgnoreCase("off") || args[0].equalsIgnoreCase("disable"))
 				args = new String[]{"effect"};
@@ -79,15 +87,15 @@ public class EGlowCommand implements CommandExecutor, TabExecutor {
 			}
 
 			if (cmd == null) {
-				ChatUtil.sendMsg(sender, Message.COMMAND_LIST.get(), true);
+				ChatUtil.sendMsg(sender, Message.COMMAND_LIST.get(pSender), true);
 				return true;
 			}
 			if (sender instanceof ConsoleCommandSender && cmd.isPlayerCmd()) {
-				ChatUtil.sendMsg(sender, Message.PLAYER_ONLY.get(), true);
+				ChatUtil.sendMsg(sender, Message.PLAYER_ONLY.get(pSender), true);
 				return true;
 			}
 			if (!cmd.getPermission().isEmpty() && !sender.hasPermission(cmd.getPermission())) {
-				ChatUtil.sendMsg(sender, Message.NO_PERMISSION.get(), true);
+				ChatUtil.sendMsg(sender, Message.NO_PERMISSION.get(pSender), true);
 				return true;
 			}
 			if (sender instanceof Player) {

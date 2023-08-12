@@ -1,12 +1,19 @@
 package me.MrGraycat.eGlow.Config;
 
+import lv.side.lang.api.LangAPI;
 import me.MrGraycat.eGlow.EGlow;
 import me.MrGraycat.eGlow.Manager.Interface.IEGlowPlayer;
 import me.MrGraycat.eGlow.Util.EnumUtil;
+import me.MrGraycat.eGlow.Util.LangMessages;
 import me.MrGraycat.eGlow.Util.Text.ChatUtil;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EGlowMessageConfig {
 
@@ -45,9 +52,30 @@ public class EGlowMessageConfig {
 			}
 
 			configCheck();
+
+
 		} catch (Exception e) {
 			ChatUtil.reportError(e);
 		}
+	}
+
+	public static void updateLang() {
+		Map<String, String> keyMap = new HashMap<>();
+
+		if (config.isConfigurationSection("main")) {
+			ConfigurationSection messages = config.getConfigurationSection("main");
+
+			//noinspection ConstantConditions
+			Collection<String> keys = messages.getKeys(true);
+			for (String key : keys) {
+				if (messages.isString(key)) {
+					String value = messages.getString(key);
+					keyMap.put("s-eglow.main." + key, value);
+				}
+			}
+		}
+
+		LangAPI.updateDefaults(keyMap);
 	}
 
 	public static boolean reloadConfig() {
@@ -155,29 +183,34 @@ public class EGlowMessageConfig {
 			return configPath;
 		}
 
-		public String get() {
-			return getColorValue(getConfigPath());
+		public String get(Player player) {
+			if (getConfigPath().startsWith("gui."))
+				return getColorValue(getConfigPath());
+			else
+				return LangMessages.get(player, getConfigPath());
 		}
 
-		public String get(String value) {
+		public String get(Player player, String value) {
 			switch (msg) {
 				case COLOR:
-					return getColorValue(msg.getConfigPath() + value);
+					return LangMessages.get(player, msg.getConfigPath() + value);
+				case GLOWONJOIN_TOGGLE:
+					return LangMessages.getParam(player, msg.getConfigPath(), "%value%", value);
+				case VISIBILITY_CHANGE:
+					return (value.toUpperCase().equals(EnumUtil.GlowVisibility.UNSUPPORTEDCLIENT.toString())) ?
+							LangMessages.getParam(player, msg.getConfigPath(), "%value%", Message.VISIBILITY_UNSUPPORTED.get(player)) :
+							LangMessages.getParam(player, msg.getConfigPath(), "%value%", Message.valueOf("VISIBILITY_" + value).get(player));
+				case INCORRECT_USAGE:
+					return LangMessages.getParam(player, msg.getConfigPath(), "%command%", value);
+				case NEW_GLOW:
+				case GLOWING_STATE_ON_JOIN:
+					return LangMessages.getParam(player, msg.getConfigPath(), "%glowname%", value);
 				case GUI_PAGE_LORE:
 					return getColorValue(msg.getConfigPath(), "%page%", value);
 				case GUI_COLOR:
 					if (config.contains(msg.getConfigPath() + value))
 						return getColorValue(msg.getConfigPath() + value);
 					return getColorValue(Message.COLOR.getConfigPath() + value);
-				case GLOWONJOIN_TOGGLE:
-					return getColorValue(msg.getConfigPath(), "%value%", value);
-				case VISIBILITY_CHANGE:
-					return (value.toUpperCase().equals(EnumUtil.GlowVisibility.UNSUPPORTEDCLIENT.toString())) ? getColorValue(msg.getConfigPath(), "%value%", Message.VISIBILITY_UNSUPPORTED.get()) : getColorValue(msg.getConfigPath(), "%value%", Message.valueOf("VISIBILITY_" + value).get());
-				case INCORRECT_USAGE:
-					return getColorValue(msg.getConfigPath(), "%command%", value);
-				case NEW_GLOW:
-				case GLOWING_STATE_ON_JOIN:
-					return getColorValue(msg.getConfigPath(), "%glowname%", value);
 				default:
 					break;
 			}
@@ -197,7 +230,7 @@ public class EGlowMessageConfig {
 		}
 
 		public String get(IEGlowPlayer target) {
-			return getColorValue(msg.getConfigPath(), "%target%", target.getDisplayName());
+			return LangMessages.getParam(target.getPlayer(), msg.getConfigPath(), "%target%", target.getDisplayName());
 		}
 
 		private String getColorValue(String path) {
@@ -220,15 +253,11 @@ public class EGlowMessageConfig {
 		}
 
 		private String getColorValue(String path, IEGlowPlayer ePlayer, String textToReplace, String replacement) {
-			String text = config.getString(path);
-
-			if (text == null)
-				return "&cFailed to get text for&f: '&e" + path + "'";
-
-			if (replacement == null)
-				replacement = "NULL";
-
-			return ChatUtil.translateColors(text.replace(textToReplace, replacement).replace("%target%", ePlayer.getDisplayName()));
+			return LangMessages.getParam(
+					ePlayer.getPlayer(), path,
+					new String[]{textToReplace, "%target%"},
+					new String[]{replacement, ePlayer.getDisplayName()}
+			);
 		}
 	}
 

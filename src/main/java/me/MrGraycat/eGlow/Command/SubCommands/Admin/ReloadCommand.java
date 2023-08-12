@@ -51,6 +51,8 @@ public class ReloadCommand extends SubCommand {
 
 	@Override
 	public void perform(CommandSender sender, IEGlowPlayer ePlayer, String[] args) {
+		Player pSender = (sender instanceof Player player) ? player : null;
+
 		if (EGlowMainConfig.reloadConfig() && EGlowMessageConfig.reloadConfig() && EGlowCustomEffectsConfig.reloadConfig()) {
 			EGlowPlayerdataManager.setMysql_Failed(false);
 			DataManager.addEGlowEffects();
@@ -69,7 +71,7 @@ public class ReloadCommand extends SubCommand {
 				if (effect != null) {
 					if (getInstance().getLibDisguiseAddon() != null && getInstance().getLibDisguiseAddon().isDisguised(ePlayer.getPlayer()) || getInstance().getIDisguiseAddon() != null && getInstance().getIDisguiseAddon().isDisguised(ePlayer.getPlayer())) {
 						ePlayer.setGlowDisableReason(GlowDisableReason.DISGUISE, false);
-						ChatUtil.sendMsg(ePlayer.getPlayer(), Message.DISGUISE_BLOCKED.get(), true);
+						ChatUtil.sendMsg(ePlayer.getPlayer(), Message.DISGUISE_BLOCKED.get(ePlayer.getPlayer()), true);
 					} else {
 						ePlayer.activateGlow(effect);
 					}
@@ -80,13 +82,13 @@ public class ReloadCommand extends SubCommand {
 					if (ePlayer.isGlowing()) {
 						ePlayer.disableGlow(false);
 						ePlayer.setGlowDisableReason(GlowDisableReason.BLOCKEDWORLD, false);
-						ChatUtil.sendMsg(ePlayer.getPlayer(), Message.WORLD_BLOCKED_RELOAD.get(), true);
+						ChatUtil.sendMsg(ePlayer.getPlayer(), Message.WORLD_BLOCKED_RELOAD.get(ePlayer.getPlayer()), true);
 					}
 				} else {
 					if (ePlayer.getGlowDisableReason() != null && ePlayer.getGlowDisableReason().equals(GlowDisableReason.BLOCKEDWORLD)) {
 						if (ePlayer.setGlowDisableReason(GlowDisableReason.NONE, false)) {
 							ePlayer.activateGlow();
-							ChatUtil.sendMsg(ePlayer.getPlayer(), Message.WORLD_ALLOWED.get(), true);
+							ChatUtil.sendMsg(ePlayer.getPlayer(), Message.WORLD_ALLOWED.get(ePlayer.getPlayer()), true);
 						}
 					}
 				}
@@ -114,9 +116,9 @@ public class ReloadCommand extends SubCommand {
 				ChatUtil.reportError(e);
 			}
 
-			ChatUtil.sendMsg(sender, Message.RELOAD_SUCCESS.get(), true);
+			ChatUtil.sendMsg(sender, Message.RELOAD_SUCCESS.get(pSender), true);
 		} else {
-			ChatUtil.sendMsg(sender, Message.RELOAD_SUCCESS.get(), true);
+			ChatUtil.sendMsg(sender, Message.RELOAD_SUCCESS.get(pSender), true);
 		}
 	}
 }

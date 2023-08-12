@@ -44,7 +44,7 @@ public abstract class PaginatedMenu extends Menu {
 		
 		inventory.setItem(28, createPlayerSkull(p));
 		inventory.setItem(29, createGlowingStatus(p));
-		inventory.setItem(33, createItem((ProtocolVersion.SERVER_VERSION.getMinorVersion() >= 14) ? Material.valueOf("OAK_SIGN") : Material.valueOf("SIGN"), Message.GUI_PREVIOUS_PAGE.get(), 0, Message.GUI_PAGE_LORE.get((page == 1) ? Message.GUI_MAIN_MENU.get() : page - 1 + "")));
-		inventory.setItem(34, createItem((ProtocolVersion.SERVER_VERSION.getMinorVersion() >= 14) ? Material.valueOf("OAK_SIGN") : Material.valueOf("SIGN"), Message.GUI_NEXT_PAGE.get(), 0, Message.GUI_PAGE_LORE.get((!hasNextPage()) ? Message.GUI_NOT_AVAILABLE.get() : page + 1 + "")));
+		inventory.setItem(33, createItem((ProtocolVersion.SERVER_VERSION.getMinorVersion() >= 14) ? Material.valueOf("OAK_SIGN") : Material.valueOf("SIGN"), Message.GUI_PREVIOUS_PAGE.get(p.getPlayer()), 0, Message.GUI_PAGE_LORE.get(p.getPlayer(), (page == 1) ? Message.GUI_MAIN_MENU.get(p.getPlayer()) : page - 1 + "")));
+		inventory.setItem(34, createItem((ProtocolVersion.SERVER_VERSION.getMinorVersion() >= 14) ? Material.valueOf("OAK_SIGN") : Material.valueOf("SIGN"), Message.GUI_NEXT_PAGE.get(p.getPlayer()), 0, Message.GUI_PAGE_LORE.get(p.getPlayer(), (!hasNextPage()) ? Message.GUI_NOT_AVAILABLE.get(p.getPlayer()) : page + 1 + "")));
 	}
 }

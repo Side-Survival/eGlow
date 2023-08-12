@@ -30,7 +30,8 @@ public abstract class SubCommand {
 	 * @param prefix true: prefix + text, false: text
 	 */
 	public void sendSyntax(CommandSender sender, String text, boolean prefix) {
-		ChatUtil.sendPlainMsg(sender, Message.INCORRECT_USAGE.get(text), prefix);
+		Player pSender = (sender instanceof Player player) ? player : null;
+		ChatUtil.sendPlainMsg(sender, Message.INCORRECT_USAGE.get(pSender, text), prefix);
 	}
 	
 	/**
@@ -40,12 +41,14 @@ public abstract class SubCommand {
 	 * @return IEGlowEntity instance of the targeted player/npc
 	 */
 	public List<IEGlowPlayer> getTarget(CommandSender sender, String[] args) {
+		Player pSender = (sender instanceof Player player) ? player : null;
+
 		if (args.length >= 2) {
 			List<IEGlowPlayer> results = new ArrayList<>();
 			
 			if (args[1].toLowerCase().contains("npc:")) {
 				if (getInstance().getCitizensAddon() == null) {
-					ChatUtil.sendMsg(sender, Message.CITIZENS_NOT_INSTALLED.get(), true);
+					ChatUtil.sendMsg(sender, Message.CITIZENS_NOT_INSTALLED.get(pSender), true);
 					return null;
 				}
 					
@@ -56,7 +59,7 @@ public abstract class SubCommand {
 					try {
 						npc = CitizensAPI.getDefaultNPCSelector().getSelected(sender);
 					} catch (NullPointerException e) {
-						ChatUtil.sendMsg(sender, Message.CITIZENS_NPC_NOT_FOUND.get(), true);
+						ChatUtil.sendMsg(sender, Message.CITIZENS_NPC_NOT_FOUND.get(pSender), true);
 					}
 				} else {
 					try {
@@ -67,17 +70,17 @@ public abstract class SubCommand {
 				}
 				
 				if (npc == null) {
-					ChatUtil.sendMsg(sender, Message.CITIZENS_NPC_NOT_FOUND.get(), true);
+					ChatUtil.sendMsg(sender, Message.CITIZENS_NPC_NOT_FOUND.get(pSender), true);
 					return null;
 				}
 				
 				if (!npc.isSpawned()) {
-					ChatUtil.sendMsg(sender, Message.CITIZENS_NPC_NOT_SPAWNED.get(), true);
+					ChatUtil.sendMsg(sender, Message.CITIZENS_NPC_NOT_SPAWNED.get(pSender), true);
 					return null;
 				}
 				
 				if (!getInstance().getCitizensAddon().traitCheck(npc)) {
-					ChatUtil.sendMsg(sender, Message.PREFIX.get() + "&cYour Citizens plugin is outdated&f!", true);
+					ChatUtil.sendMsg(sender, Message.PREFIX.get(pSender) + "&cYour Citizens plugin is outdated&f!", true);
 					return null;
 				}
 				try {
@@ -97,14 +100,14 @@ public abstract class SubCommand {
 				Player player = Bukkit.getPlayer(args[1].toLowerCase());
 				
 				if (player == null) {
-					ChatUtil.sendMsg(sender, Message.PLAYER_NOT_FOUND.get(), true);
+					ChatUtil.sendMsg(sender, Message.PLAYER_NOT_FOUND.get(pSender), true);
 					return null;
 				}
 				
 				IEGlowPlayer ePlayer = DataManager.getEGlowPlayer(player);
 				
 				if (ePlayer == null) {
-					ChatUtil.sendMsg(sender, Message.PLAYER_NOT_FOUND.get(), true);
+					ChatUtil.sendMsg(sender, Message.PLAYER_NOT_FOUND.get(pSender), true);
 					return null;
 				}
 				
