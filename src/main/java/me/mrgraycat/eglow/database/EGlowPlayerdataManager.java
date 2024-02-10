@@ -1,9 +1,9 @@
-package me.mrgraycat.eglow.database;
+package me.MrGraycat.eglow.database;
 
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.enums.EnumUtil.ConfigType;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 
 public class EGlowPlayerdataManager {
 	private static EGlowPlayerdataSQLite sqlite;
@@ -14,7 +14,7 @@ public class EGlowPlayerdataManager {
 	 * Initialise the playerdata storage config/mysql
 	 */
 	public static void initialize() {
-		switch ((MainConfig.MYSQL_ENABLE.getBoolean()) ? ConfigType.MYSQL : ConfigType.SQLITE) {
+		switch ((MainConfig.MYSQL_ENABLE.getBoolean()) ? EnumUtil.ConfigType.MYSQL : EnumUtil.ConfigType.SQLITE) {
 			case SQLITE:
 				sqlite = new EGlowPlayerdataSQLite();
 				break;
@@ -30,7 +30,7 @@ public class EGlowPlayerdataManager {
 	 * @param eGlowPlayer player to load data from
 	 */
 	public static void loadPlayerdata(EGlowPlayer eGlowPlayer) {
-		switch ((MainConfig.MYSQL_ENABLE.getBoolean()) ? ConfigType.MYSQL : ConfigType.SQLITE) {
+		switch ((MainConfig.MYSQL_ENABLE.getBoolean()) ? EnumUtil.ConfigType.MYSQL : EnumUtil.ConfigType.SQLITE) {
 			case SQLITE:
 				if (sqlite == null)
 					return;
@@ -54,7 +54,7 @@ public class EGlowPlayerdataManager {
 		if (eGlowPlayer.skipSaveData())
 			return;
 
-		switch ((MainConfig.MYSQL_ENABLE.getBoolean()) ? ConfigType.MYSQL : ConfigType.SQLITE) {
+		switch ((MainConfig.MYSQL_ENABLE.getBoolean()) ? EnumUtil.ConfigType.MYSQL : EnumUtil.ConfigType.SQLITE) {
 			case SQLITE:
 				if (sqlite == null)
 					return;

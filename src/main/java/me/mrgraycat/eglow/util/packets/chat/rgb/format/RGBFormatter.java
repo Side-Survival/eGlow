@@ -1,4 +1,4 @@
-package me.mrgraycat.eglow.util.packets.chat.rgb.format;
+package me.MrGraycat.eglow.Util.packets.chat.rgb.format;
 
 /**
  * Abstract class for different RGB patterns

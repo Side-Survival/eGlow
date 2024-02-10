@@ -1,12 +1,12 @@
-package me.mrgraycat.eglow.addon;
+package me.MrGraycat.eglow.addon;
 
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.addon.tab.TABAddon;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.enums.Dependency;
-import me.mrgraycat.eglow.util.packets.PacketUtil;
-import me.mrgraycat.eglow.util.packets.chat.EnumChatFormat;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.addon.tab.TABAddon;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.Util.enums.Dependency;
+import me.MrGraycat.eglow.Util.packets.PacketUtil;
+import me.MrGraycat.eglow.Util.packets.chat.EnumChatFormat;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.event.EventBus;
 import net.luckperms.api.event.EventSubscription;

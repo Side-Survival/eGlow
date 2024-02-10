@@ -1,14 +1,14 @@
-package me.mrgraycat.eglow.api;
+package me.MrGraycat.eglow.API;
 
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.api.enums.EGlowBlink;
-import me.mrgraycat.eglow.api.enums.EGlowColor;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowEffect;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.packets.PacketUtil;
-import me.mrgraycat.eglow.util.packets.PipelineInjector;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.API.enums.EGlowEffect;
+import me.MrGraycat.eglow.Util.packets.PipelineInjector;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.API.enums.EGlowBlink;
+import me.MrGraycat.eglow.API.enums.EGlowColor;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.Util.packets.PacketUtil;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -47,8 +47,8 @@ public class EGlowAPI {
 	 * @param name name for the effect
 	 * @return IEGlowEffect is found, null if not
 	 */
-	public EGlowEffect getEGlowEffect(String name) {
-		EGlowEffect eGlowEffect = DataManager.getEGlowEffect(name);
+	public me.MrGraycat.eglow.data.EGlowEffect getEGlowEffect(String name) {
+		me.MrGraycat.eglow.data.EGlowEffect eGlowEffect = DataManager.getEGlowEffect(name);
 
 		if (eGlowEffect == null)
 			ChatUtil.sendToConsole("(API) Unable to find effect for name: " + name, true);
@@ -71,7 +71,7 @@ public class EGlowAPI {
 	 * @param eGlowPlayer to activate the effect for
 	 * @param eGlowEffect to enable
 	 */
-	public void enableGlow(EGlowPlayer eGlowPlayer, EGlowEffect eGlowEffect) {
+	public void enableGlow(EGlowPlayer eGlowPlayer, me.MrGraycat.eglow.data.EGlowEffect eGlowEffect) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -95,7 +95,7 @@ public class EGlowAPI {
 				if (eGlowPlayer == null)
 					return;
 
-				EGlowEffect eGlowEffect = DataManager.getEGlowEffect(color.toString());
+				me.MrGraycat.eglow.data.EGlowEffect eGlowEffect = DataManager.getEGlowEffect(color.toString());
 				eGlowPlayer.activateGlow(eGlowEffect);
 			}
 		}.runTaskLaterAsynchronously(EGlow.getInstance(), 1);
@@ -114,7 +114,7 @@ public class EGlowAPI {
 				if (eGlowPlayer == null)
 					return;
 
-				EGlowEffect eGlowEffect = DataManager.getEGlowEffect(blink.toString());
+				me.MrGraycat.eglow.data.EGlowEffect eGlowEffect = DataManager.getEGlowEffect(blink.toString());
 				eGlowPlayer.activateGlow(eGlowEffect);
 			}
 		}.runTaskLaterAsynchronously(EGlow.getInstance(), 1);
@@ -126,14 +126,14 @@ public class EGlowAPI {
 	 * @param eGlowPlayer to activate the effect for
 	 * @param effect      to enable
 	 */
-	public void enableGlow(EGlowPlayer eGlowPlayer, me.mrgraycat.eglow.api.enums.EGlowEffect effect) {
+	public void enableGlow(EGlowPlayer eGlowPlayer, EGlowEffect effect) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 				if (eGlowPlayer == null)
 					return;
 
-				EGlowEffect eGlowEffect = DataManager.getEGlowEffect(effect.toString());
+				me.MrGraycat.eglow.data.EGlowEffect eGlowEffect = DataManager.getEGlowEffect(effect.toString());
 				eGlowPlayer.activateGlow(eGlowEffect);
 			}
 		}.runTaskLaterAsynchronously(EGlow.getInstance(), 1);

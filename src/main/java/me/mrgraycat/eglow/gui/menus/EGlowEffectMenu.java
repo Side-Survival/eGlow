@@ -1,15 +1,16 @@
-package me.mrgraycat.eglow.gui.menus;
+package me.MrGraycat.eglow.gui.menus;
 
 import lombok.Getter;
-import me.mrgraycat.eglow.config.EGlowCustomEffectsConfig.Effect;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowEffect;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.gui.PaginatedMenu;
-import me.mrgraycat.eglow.util.packets.ProtocolVersion;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.Util.packets.ProtocolVersion;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
+import me.MrGraycat.eglow.config.EGlowCustomEffectsConfig;
+import me.MrGraycat.eglow.config.EGlowMainConfig;
+import me.MrGraycat.eglow.config.EGlowMessageConfig;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowEffect;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.gui.PaginatedMenu;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -28,7 +29,7 @@ public class EGlowEffectMenu extends PaginatedMenu {
 
 	@Override
 	public String getMenuName() {
-		return ChatUtil.translateColors(((MainConfig.SETTINGS_GUI_ADD_PREFIX.getBoolean()) ? Message.GUI_TITLE.get() : Message.PREFIX.get() + Message.GUI_TITLE.get()));
+		return ChatUtil.translateColors(((EGlowMainConfig.MainConfig.SETTINGS_GUI_ADD_PREFIX.getBoolean()) ? EGlowMessageConfig.Message.GUI_TITLE.get() : EGlowMessageConfig.Message.PREFIX.get() + EGlowMessageConfig.Message.GUI_TITLE.get()));
 	}
 
 	@Override
@@ -43,8 +44,8 @@ public class EGlowEffectMenu extends PaginatedMenu {
 		ClickType clickType = event.getClick();
 		int clickedSlot = event.getSlot();
 
-		if ((System.currentTimeMillis() - getMenuMetadata().getLastClicked()) < MainConfig.SETTINGS_GUIS_INTERACTION_DELAY.getLong()) {
-			ChatUtil.sendMsgFromGUI(player, Message.GUI_COOLDOWN.get());
+		if ((System.currentTimeMillis() - getMenuMetadata().getLastClicked()) < EGlowMainConfig.MainConfig.SETTINGS_GUIS_INTERACTION_DELAY.getLong()) {
+			ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.GUI_COOLDOWN.get());
 			return;
 		}
 
@@ -61,22 +62,22 @@ public class EGlowEffectMenu extends PaginatedMenu {
 				if (eGlowPlayer.getPlayer().hasPermission("eglow.command.toggle")) {
 					if (eGlowPlayer.isGlowing()) {
 						eGlowPlayer.disableGlow(false);
-						ChatUtil.sendMsgFromGUI(player, Message.DISABLE_GLOW.get());
+						ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.DISABLE_GLOW.get());
 					} else {
 						if (eGlowPlayer.getGlowEffect() == null || eGlowPlayer.getGlowEffect().getName().equals("none")) {
-							ChatUtil.sendMsgFromGUI(player, Message.NO_LAST_GLOW.get());
+							ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_LAST_GLOW.get());
 							return;
 						}
 
 						switch (eGlowPlayer.getGlowDisableReason()) {
 							case BLOCKEDWORLD:
-								ChatUtil.sendMsgFromGUI(player, Message.WORLD_BLOCKED.get());
+								ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.WORLD_BLOCKED.get());
 								return;
 							case INVISIBLE:
-								ChatUtil.sendMsgFromGUI(player, Message.INVISIBILITY_BLOCKED.get());
+								ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.INVISIBILITY_BLOCKED.get());
 								return;
 							case ANIMATION:
-								ChatUtil.sendMsgFromGUI(player, Message.ANIMATION_BLOCKED.get());
+								ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.ANIMATION_BLOCKED.get());
 								return;
 						}
 
@@ -85,13 +86,13 @@ public class EGlowEffectMenu extends PaginatedMenu {
 						if (eGlowPlayer.hasPermission(currentEGlowEffect.getPermissionNode()) || (DataManager.isCustomEffect(currentEGlowEffect.getName()) && eGlowPlayer.hasPermission("eglow.egloweffect.*")) || eGlowPlayer.isForcedGlow(currentEGlowEffect)) {
 							eGlowPlayer.activateGlow();
 						} else {
-							ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get());
+							ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_PERMISSION.get());
 							return;
 						}
-						ChatUtil.sendMsgFromGUI(player, Message.NEW_GLOW.get(eGlowPlayer.getLastGlowName()));
+						ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NEW_GLOW.get(eGlowPlayer.getLastGlowName()));
 					}
 				} else {
-					ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get());
+					ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_PERMISSION.get());
 				}
 				break;
 			case (33):
@@ -131,7 +132,7 @@ public class EGlowEffectMenu extends PaginatedMenu {
 		int currentEffectSlot = 0;
 		int nextEffectSlot = (26 * (getPage() - 1)) + ((getPage() > 1) ? 1 : 0);
 
-		for (String effect : Effect.GET_ALL_EFFECTS.get()) {
+		for (String effect : EGlowCustomEffectsConfig.Effect.GET_ALL_EFFECTS.get()) {
 			EGlowEffect eGlowEffect = DataManager.getEGlowEffect(effect.toLowerCase());
 			if (eGlowEffect == null)
 				continue;
@@ -155,7 +156,7 @@ public class EGlowEffectMenu extends PaginatedMenu {
 				int model = getModelID(effect);
 				ArrayList<String> lores = new ArrayList<>();
 
-				for (String lore : Effect.GET_LORES.getList(effect)) {
+				for (String lore : EGlowCustomEffectsConfig.Effect.GET_LORES.getList(effect)) {
 					lore = ChatUtil.translateColors(lore.replace("%effect_name%", eGlowEffect.getDisplayName()).replace("%effect_has_permission%", hasPermission(eGlowPlayer, eGlowEffect.getPermissionNode())));
 					lores.add(lore);
 				}
@@ -171,7 +172,7 @@ public class EGlowEffectMenu extends PaginatedMenu {
 	}
 
 	private Material getMaterial(String effect) {
-		String material = Effect.GET_MATERIAL.getString(effect).toUpperCase();
+		String material = EGlowCustomEffectsConfig.Effect.GET_MATERIAL.getString(effect).toUpperCase();
 		try {
 			if (ProtocolVersion.SERVER_VERSION.getMinorVersion() >= 13) {
 				switch (material) {
@@ -191,14 +192,14 @@ public class EGlowEffectMenu extends PaginatedMenu {
 	}
 
 	private String getName(String effect) {
-		return Effect.GET_NAME.getString(effect);
+		return EGlowCustomEffectsConfig.Effect.GET_NAME.getString(effect);
 	}
 
 	private int getMeta(String effect) {
-		return Effect.GET_META.getInt(effect);
+		return EGlowCustomEffectsConfig.Effect.GET_META.getInt(effect);
 	}
 
 	private int getModelID(String effect) {
-		return (ProtocolVersion.SERVER_VERSION.getMinorVersion() >= 14) ? Effect.GET_MODEL_ID.getInt(effect) : -1;
+		return (ProtocolVersion.SERVER_VERSION.getMinorVersion() >= 14) ? EGlowCustomEffectsConfig.Effect.GET_MODEL_ID.getInt(effect) : -1;
 	}
 }

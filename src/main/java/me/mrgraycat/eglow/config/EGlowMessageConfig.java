@@ -1,9 +1,9 @@
-package me.mrgraycat.eglow.config;
+package me.MrGraycat.eglow.config;
 
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.enums.EnumUtil;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;

@@ -1,7 +1,7 @@
-package me.mrgraycat.eglow.util.packets.chat.rgb.gradient;
+package me.MrGraycat.eglow.Util.packets.chat.rgb.gradient;
 
-import me.mrgraycat.eglow.util.packets.chat.EnumChatFormat;
-import me.mrgraycat.eglow.util.packets.chat.TextColor;
+import me.MrGraycat.eglow.Util.packets.chat.EnumChatFormat;
+import me.MrGraycat.eglow.Util.packets.chat.TextColor;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

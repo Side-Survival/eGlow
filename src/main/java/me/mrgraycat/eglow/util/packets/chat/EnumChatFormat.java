@@ -1,6 +1,6 @@
-package me.mrgraycat.eglow.util.packets.chat;
+package me.MrGraycat.eglow.Util.packets.chat;
 
-import me.mrgraycat.eglow.util.packets.chat.rgb.RGBUtils;
+import me.MrGraycat.eglow.Util.packets.chat.rgb.RGBUtils;
 
 public enum EnumChatFormat {
 

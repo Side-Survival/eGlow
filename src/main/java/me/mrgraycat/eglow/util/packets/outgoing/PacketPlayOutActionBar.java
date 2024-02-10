@@ -1,9 +1,9 @@
-package me.mrgraycat.eglow.util.packets.outgoing;
+package me.MrGraycat.eglow.Util.packets.outgoing;
 
-import me.mrgraycat.eglow.util.packets.NMSHook;
-import me.mrgraycat.eglow.util.packets.NMSStorage;
-import me.mrgraycat.eglow.util.packets.ProtocolVersion;
-import me.mrgraycat.eglow.util.packets.chat.IChatBaseComponent;
+import me.MrGraycat.eglow.Util.packets.NMSHook;
+import me.MrGraycat.eglow.Util.packets.NMSStorage;
+import me.MrGraycat.eglow.Util.packets.ProtocolVersion;
+import me.MrGraycat.eglow.Util.packets.chat.IChatBaseComponent;
 
 public class PacketPlayOutActionBar extends PacketPlayOut {
 

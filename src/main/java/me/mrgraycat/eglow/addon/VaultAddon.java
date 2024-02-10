@@ -1,13 +1,13 @@
-package me.mrgraycat.eglow.addon;
+package me.MrGraycat.eglow.addon;
 
 import lombok.Getter;
 import me.clip.placeholderapi.PlaceholderAPI;
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.enums.Dependency;
-import me.mrgraycat.eglow.util.packets.ProtocolVersion;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.Util.enums.Dependency;
+import me.MrGraycat.eglow.Util.packets.ProtocolVersion;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

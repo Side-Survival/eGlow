@@ -1,13 +1,13 @@
-package me.mrgraycat.eglow.util.text;
+package me.MrGraycat.eglow.Util.text;
 
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.packets.PacketUtil;
-import me.mrgraycat.eglow.util.packets.ProtocolVersion;
-import me.mrgraycat.eglow.util.packets.chat.ChatColor;
-import me.mrgraycat.eglow.util.packets.chat.rgb.RGBUtils;
+import me.MrGraycat.eglow.Util.packets.PacketUtil;
+import me.MrGraycat.eglow.Util.packets.ProtocolVersion;
+import me.MrGraycat.eglow.Util.packets.chat.ChatColor;
+import me.MrGraycat.eglow.config.EGlowMessageConfig;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
+import me.MrGraycat.eglow.Util.packets.chat.rgb.RGBUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -61,7 +61,7 @@ public class ChatUtil {
 
 	public static void sendPlainMsg(Object sender, String message, boolean withPrefix) {
 		if (!message.isEmpty()) {
-			message = translateColors(((withPrefix) ? Message.PREFIX.get() : "") + message);
+			message = translateColors(((withPrefix) ? EGlowMessageConfig.Message.PREFIX.get() : "") + message);
 
 			if (sender instanceof Player) {
 				((Player) sender).sendMessage(message);
@@ -81,7 +81,7 @@ public class ChatUtil {
 
 	public static void sendMsg(Object sender, String message, boolean withPrefix) {
 		if (!message.isEmpty()) {
-			message = translateColors(((withPrefix) ? Message.PREFIX.get() : "") + message);
+			message = translateColors(((withPrefix) ? EGlowMessageConfig.Message.PREFIX.get() : "") + message);
 
 			if (sender instanceof Player) {
 				if (MainConfig.ACTIONBARS_ENABLE.getBoolean()) {
@@ -96,7 +96,7 @@ public class ChatUtil {
 	}
 
 	public static void sendToConsole(String message, boolean withPrefix) {
-		Bukkit.getConsoleSender().sendMessage(translateColors(((withPrefix) ? Message.PREFIX.get() : "") + message));
+		Bukkit.getConsoleSender().sendMessage(translateColors(((withPrefix) ? EGlowMessageConfig.Message.PREFIX.get() : "") + message));
 	}
 
 	private static void sendActionbar(Player player, String message) {
@@ -119,7 +119,7 @@ public class ChatUtil {
 	}
 
 	public static String getEffectChatName(EGlowPlayer eGlowPlayer) {
-		return (eGlowPlayer.getGlowEffect() == null) ? Message.GUI_NOT_AVAILABLE.get() : eGlowPlayer.getGlowEffect().getDisplayName();
+		return (eGlowPlayer.getGlowEffect() == null) ? EGlowMessageConfig.Message.GUI_NOT_AVAILABLE.get() : eGlowPlayer.getGlowEffect().getDisplayName();
 	}
 
 	public static String getEffectName(String effect) {

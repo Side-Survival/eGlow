@@ -1,6 +1,6 @@
-package me.mrgraycat.eglow.addon;
+package me.MrGraycat.eglow.addon;
 
-import me.mrgraycat.eglow.EGlow;
+import me.MrGraycat.eglow.EGlow;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 

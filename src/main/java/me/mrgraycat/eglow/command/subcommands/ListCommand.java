@@ -1,9 +1,9 @@
-package me.mrgraycat.eglow.command.subcommands;
+package me.MrGraycat.eglow.command.subcommands;
 
-import me.mrgraycat.eglow.command.SubCommand;
-import me.mrgraycat.eglow.config.EGlowCustomEffectsConfig.Effect;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
+import me.MrGraycat.eglow.command.SubCommand;
+import me.MrGraycat.eglow.config.EGlowCustomEffectsConfig;
+import me.MrGraycat.eglow.data.EGlowPlayer;
 import org.bukkit.command.CommandSender;
 
 public class ListCommand extends SubCommand {
@@ -46,7 +46,7 @@ public class ListCommand extends SubCommand {
 		StringBuilder text = new StringBuilder();
 		int i = 1;
 
-		for (String effect : Effect.GET_ALL_EFFECTS.get()) {
+		for (String effect : EGlowCustomEffectsConfig.Effect.GET_ALL_EFFECTS.get()) {
 			text.append(ChatUtil.getEffectName(effect)).append(", ");
 
 			if (i == 3) {

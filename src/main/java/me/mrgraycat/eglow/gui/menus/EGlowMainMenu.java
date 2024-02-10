@@ -1,15 +1,15 @@
-package me.mrgraycat.eglow.gui.menus;
+package me.MrGraycat.eglow.gui.menus;
 
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowEffect;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.gui.Menu;
-import me.mrgraycat.eglow.util.enums.EnumUtil.GlowVisibility;
-import me.mrgraycat.eglow.util.packets.PacketUtil;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
+import me.MrGraycat.eglow.config.EGlowMessageConfig.Message;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowEffect;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.gui.Menu;
+import me.MrGraycat.eglow.Util.packets.PacketUtil;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -150,16 +150,16 @@ public class EGlowMainMenu extends Menu {
 
 				switch (eGlowPlayer.getGlowVisibility()) {
 					case ALL:
-						eGlowPlayer.setGlowVisibility(GlowVisibility.OTHER);
+						eGlowPlayer.setGlowVisibility(EnumUtil.GlowVisibility.OTHER);
 						break;
 					case OTHER:
-						eGlowPlayer.setGlowVisibility(GlowVisibility.OWN);
+						eGlowPlayer.setGlowVisibility(EnumUtil.GlowVisibility.OWN);
 						break;
 					case OWN:
-						eGlowPlayer.setGlowVisibility(GlowVisibility.NONE);
+						eGlowPlayer.setGlowVisibility(EnumUtil.GlowVisibility.NONE);
 						break;
 					case NONE:
-						eGlowPlayer.setGlowVisibility(GlowVisibility.ALL);
+						eGlowPlayer.setGlowVisibility(EnumUtil.GlowVisibility.ALL);
 						break;
 				}
 

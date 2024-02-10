@@ -1,11 +1,11 @@
-package me.mrgraycat.eglow.command.subcommands.admin;
+package me.MrGraycat.eglow.command.subcommands.admin;
 
-import me.mrgraycat.eglow.command.SubCommand;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.enums.EnumUtil.EntityType;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.command.SubCommand;
+import me.MrGraycat.eglow.config.EGlowMessageConfig;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.command.CommandSender;
 
 import java.util.Set;
@@ -47,12 +47,12 @@ public class UnsetCommand extends SubCommand {
 			if (eTarget.isGlowing()) {
 				eTarget.disableGlow(false);
 
-				if (eTarget.getEntityType().equals(EntityType.PLAYER) && MainConfig.SETTINGS_NOTIFICATIONS_TARGET_COMMAND.getBoolean())
-					ChatUtil.sendMsg(eTarget.getPlayer(), Message.TARGET_NOTIFICATION_PREFIX.get() + Message.DISABLE_GLOW.get(), true);
+				if (eTarget.getEntityType().equals(EnumUtil.EntityType.PLAYER) && MainConfig.SETTINGS_NOTIFICATIONS_TARGET_COMMAND.getBoolean())
+					ChatUtil.sendMsg(eTarget.getPlayer(), EGlowMessageConfig.Message.TARGET_NOTIFICATION_PREFIX.get() + EGlowMessageConfig.Message.DISABLE_GLOW.get(), true);
 			}
 
 			if (!args[args.length - 1].equalsIgnoreCase("-s")) {
-				ChatUtil.sendMsg(sender, Message.OTHER_CONFIRM_OFF.get(eTarget), true);
+				ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.OTHER_CONFIRM_OFF.get(eTarget), true);
 			}
 		}
 	}

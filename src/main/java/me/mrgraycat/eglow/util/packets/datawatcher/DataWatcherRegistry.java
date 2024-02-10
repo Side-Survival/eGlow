@@ -1,7 +1,7 @@
-package me.mrgraycat.eglow.util.packets.datawatcher;
+package me.MrGraycat.eglow.Util.packets.datawatcher;
 
-import me.mrgraycat.eglow.util.packets.NMSStorage;
-import me.mrgraycat.eglow.util.packets.ProtocolVersion;
+import me.MrGraycat.eglow.Util.packets.NMSStorage;
+import me.MrGraycat.eglow.Util.packets.ProtocolVersion;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

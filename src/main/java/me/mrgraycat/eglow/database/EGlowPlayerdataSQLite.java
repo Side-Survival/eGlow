@@ -1,11 +1,10 @@
-package me.mrgraycat.eglow.database;
+package me.MrGraycat.eglow.database;
 
 import lombok.Getter;
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.enums.EnumUtil.GlowDisableReason;
-import me.mrgraycat.eglow.util.enums.EnumUtil.GlowVisibility;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.sqlite.SQLiteDataSource;
 
@@ -46,8 +45,8 @@ public class EGlowPlayerdataSQLite {
 			eGlowPlayer.setDataFromLastGlow(data[0]);
 			eGlowPlayer.setGlowOnJoin(Boolean.parseBoolean(data[1]));
 			eGlowPlayer.setActiveOnQuit(Boolean.parseBoolean(data[2]));
-			eGlowPlayer.setGlowVisibility(GlowVisibility.valueOf(data[3]));
-			eGlowPlayer.setForcedGlowDisableReason(GlowDisableReason.valueOf(data[4]));
+			eGlowPlayer.setGlowVisibility(EnumUtil.GlowVisibility.valueOf(data[3]));
+			eGlowPlayer.setForcedGlowDisableReason(EnumUtil.GlowDisableReason.valueOf(data[4]));
 			return;
 		}
 
@@ -68,8 +67,8 @@ public class EGlowPlayerdataSQLite {
 					eGlowPlayer.setGlowOnJoin(resultSet.getBoolean("glowOnJoin"));
 					eGlowPlayer.setActiveOnQuit(resultSet.getBoolean("activeOnQuit"));
 					eGlowPlayer.setDataFromLastGlow(resultSet.getString("lastGlowData"));
-					eGlowPlayer.setGlowVisibility((resultSet.getString("glowVisibility").equals(GlowVisibility.UNSUPPORTEDCLIENT.name()) ? eGlowPlayer.getGlowVisibility() : GlowVisibility.valueOf(resultSet.getString("glowVisibility"))));
-					eGlowPlayer.setForcedGlowDisableReason(GlowDisableReason.valueOf(resultSet.getString("glowDisableReason")));
+					eGlowPlayer.setGlowVisibility((resultSet.getString("glowVisibility").equals(EnumUtil.GlowVisibility.UNSUPPORTEDCLIENT.name()) ? eGlowPlayer.getGlowVisibility() : EnumUtil.GlowVisibility.valueOf(resultSet.getString("glowVisibility"))));
+					eGlowPlayer.setForcedGlowDisableReason(EnumUtil.GlowDisableReason.valueOf(resultSet.getString("glowDisableReason")));
 				} catch (NullPointerException | IllegalArgumentException exception) {
 					ChatUtil.sendToConsole("Playerdata of player: " + eGlowPlayer.getDisplayName() + " has been reset due to a corrupted value.", true);
 					EGlowPlayerdataManager.setDefaultValues(eGlowPlayer);

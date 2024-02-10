@@ -1,13 +1,13 @@
-package me.mrgraycat.eglow.addon;
+package me.MrGraycat.eglow.addon;
 
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowEffect;
+import me.MrGraycat.eglow.data.EGlowPlayer;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowEffect;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.enums.EnumUtil.GlowVisibility;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.config.EGlowMessageConfig.Message;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.entity.Player;
 
 public class PlaceholderAPIAddon extends PlaceholderExpansion {
@@ -93,15 +93,15 @@ public class PlaceholderAPIAddon extends PlaceholderExpansion {
 			case ("glowstatus_join_raw"):
 				return (eGlowPlayer.isGlowOnJoin()) ? "true" : "false";
 			case ("glow_visibility"):
-				return (eGlowPlayer.getGlowVisibility().equals(GlowVisibility.UNSUPPORTEDCLIENT)) ? Message.VISIBILITY_UNSUPPORTED.get() : Message.valueOf("VISIBILITY_" + eGlowPlayer.getGlowVisibility().toString()).get();
+				return (eGlowPlayer.getGlowVisibility().equals(EnumUtil.GlowVisibility.UNSUPPORTEDCLIENT)) ? Message.VISIBILITY_UNSUPPORTED.get() : Message.valueOf("VISIBILITY_" + eGlowPlayer.getGlowVisibility().toString()).get();
 			case ("glow_visibility_all"):
-				return ((eGlowPlayer.getGlowVisibility().equals(GlowVisibility.ALL)) ? Message.GLOW_VISIBILITY_INDICATOR.get() : "") + Message.VISIBILITY_ALL.get();
+				return ((eGlowPlayer.getGlowVisibility().equals(EnumUtil.GlowVisibility.ALL)) ? Message.GLOW_VISIBILITY_INDICATOR.get() : "") + Message.VISIBILITY_ALL.get();
 			case ("glow_visibility_other"):
-				return ((eGlowPlayer.getGlowVisibility().equals(GlowVisibility.OTHER)) ? Message.GLOW_VISIBILITY_INDICATOR.get() : "") + Message.VISIBILITY_OTHER.get();
+				return ((eGlowPlayer.getGlowVisibility().equals(EnumUtil.GlowVisibility.OTHER)) ? Message.GLOW_VISIBILITY_INDICATOR.get() : "") + Message.VISIBILITY_OTHER.get();
 			case ("glow_visibility_own"):
-				return ((eGlowPlayer.getGlowVisibility().equals(GlowVisibility.OWN)) ? Message.GLOW_VISIBILITY_INDICATOR.get() : "") + Message.VISIBILITY_OWN.get();
+				return ((eGlowPlayer.getGlowVisibility().equals(EnumUtil.GlowVisibility.OWN)) ? Message.GLOW_VISIBILITY_INDICATOR.get() : "") + Message.VISIBILITY_OWN.get();
 			case ("glow_visibility_none"):
-				return ((eGlowPlayer.getGlowVisibility().equals(GlowVisibility.NONE)) ? Message.GLOW_VISIBILITY_INDICATOR.get() : "") + Message.VISIBILITY_NONE.get();
+				return ((eGlowPlayer.getGlowVisibility().equals(EnumUtil.GlowVisibility.NONE)) ? Message.GLOW_VISIBILITY_INDICATOR.get() : "") + Message.VISIBILITY_NONE.get();
 			default:
 				boolean raw = identifier.toLowerCase().endsWith("_raw");
 				if (identifier.toLowerCase().contains("has_permission_")) {

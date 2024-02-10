@@ -1,9 +1,9 @@
-package me.mrgraycat.eglow.command.subcommands;
+package me.MrGraycat.eglow.command.subcommands;
 
-import me.mrgraycat.eglow.command.SubCommand;
-import me.mrgraycat.eglow.config.EGlowMessageConfig;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
+import me.MrGraycat.eglow.command.SubCommand;
+import me.MrGraycat.eglow.config.EGlowMessageConfig;
+import me.MrGraycat.eglow.data.EGlowPlayer;
 import org.bukkit.command.CommandSender;
 
 public class ToggleGlowOnJoinCommand extends SubCommand {

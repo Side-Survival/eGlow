@@ -1,10 +1,10 @@
-package me.mrgraycat.eglow.command.subcommands.admin;
+package me.MrGraycat.eglow.command.subcommands.admin;
 
-import me.mrgraycat.eglow.command.SubCommand;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.DebugUtil;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.DebugUtil;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
+import me.MrGraycat.eglow.command.SubCommand;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

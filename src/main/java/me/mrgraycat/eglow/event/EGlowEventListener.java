@@ -1,16 +1,16 @@
-package me.mrgraycat.eglow.event;
+package me.MrGraycat.eglow.event;
 
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.database.EGlowPlayerdataManager;
-import me.mrgraycat.eglow.gui.Menu;
-import me.mrgraycat.eglow.util.enums.EnumUtil.GlowDisableReason;
-import me.mrgraycat.eglow.util.packets.PacketUtil;
-import me.mrgraycat.eglow.util.packets.ProtocolVersion;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.Util.packets.PacketUtil;
+import me.MrGraycat.eglow.Util.packets.ProtocolVersion;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
+import me.MrGraycat.eglow.config.EGlowMessageConfig.Message;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.database.EGlowPlayerdataManager;
+import me.MrGraycat.eglow.gui.Menu;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -74,12 +74,12 @@ public class EGlowEventListener implements Listener {
 			if (eGlowPlayer.isInBlockedWorld()) {
 				if (eGlowPlayer.isGlowing()) {
 					eGlowPlayer.disableGlow(false);
-					eGlowPlayer.setGlowDisableReason(GlowDisableReason.BLOCKEDWORLD);
+					eGlowPlayer.setGlowDisableReason(EnumUtil.GlowDisableReason.BLOCKEDWORLD);
 					ChatUtil.sendMsg(player, Message.WORLD_BLOCKED.get(), true);
 				}
 			} else {
-				if (eGlowPlayer.getGlowDisableReason().equals(GlowDisableReason.BLOCKEDWORLD)) {
-					if (eGlowPlayer.setGlowDisableReason(GlowDisableReason.NONE).equals(GlowDisableReason.NONE)) {
+				if (eGlowPlayer.getGlowDisableReason().equals(EnumUtil.GlowDisableReason.BLOCKEDWORLD)) {
+					if (eGlowPlayer.setGlowDisableReason(EnumUtil.GlowDisableReason.NONE).equals(EnumUtil.GlowDisableReason.NONE)) {
 						eGlowPlayer.activateGlow();
 						ChatUtil.sendMsg(player, Message.WORLD_ALLOWED.get(), true);
 					}
@@ -128,7 +128,7 @@ public class EGlowEventListener implements Listener {
 					return;
 				}
 
-				GlowDisableReason glowDisableReason = eGlowPlayer.setGlowDisableReason(GlowDisableReason.NONE);
+				EnumUtil.GlowDisableReason glowDisableReason = eGlowPlayer.setGlowDisableReason(EnumUtil.GlowDisableReason.NONE);
 
 				switch (glowDisableReason) {
 					case BLOCKEDWORLD:

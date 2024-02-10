@@ -1,16 +1,16 @@
-package me.mrgraycat.eglow.util;
+package me.MrGraycat.eglow.Util;
 
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.enums.Dependency;
-import me.mrgraycat.eglow.util.packets.NMSHook;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.Util.enums.Dependency;
+import me.MrGraycat.eglow.Util.packets.NMSHook;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
-import static me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig.ADVANCED_VELOCITY_MESSAGING;
+import static me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig.ADVANCED_VELOCITY_MESSAGING;
 
 public class DebugUtil {
 	private static final String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];

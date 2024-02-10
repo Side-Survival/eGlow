@@ -1,10 +1,10 @@
-package me.mrgraycat.eglow.gui;
+package me.MrGraycat.eglow.gui;
 
 import lombok.Getter;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.packets.ProtocolVersion;
+import me.MrGraycat.eglow.Util.packets.ProtocolVersion;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
+import me.MrGraycat.eglow.config.EGlowMessageConfig.Message;
+import me.MrGraycat.eglow.data.EGlowPlayer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 

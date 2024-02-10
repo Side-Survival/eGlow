@@ -1,9 +1,9 @@
-package me.mrgraycat.eglow.util.packets.outgoing;
+package me.MrGraycat.eglow.Util.packets.outgoing;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import me.mrgraycat.eglow.util.packets.NMSHook;
-import me.mrgraycat.eglow.util.packets.ProtocolVersion;
-import me.mrgraycat.eglow.util.packets.datawatcher.DataWatcher;
+import me.MrGraycat.eglow.Util.packets.NMSHook;
+import me.MrGraycat.eglow.Util.packets.ProtocolVersion;
+import me.MrGraycat.eglow.Util.packets.datawatcher.DataWatcher;
 
 import java.util.ArrayList;
 import java.util.List;

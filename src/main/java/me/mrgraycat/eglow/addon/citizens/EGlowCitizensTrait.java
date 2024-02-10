@@ -1,8 +1,8 @@
-package me.mrgraycat.eglow.addon.citizens;
+package me.MrGraycat.eglow.addon.citizens;
 
 import lombok.Getter;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
+import me.MrGraycat.eglow.data.EGlowPlayer;
 import net.citizensnpcs.api.persistence.Persist;
 import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.util.DataKey;

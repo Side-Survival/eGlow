@@ -1,4 +1,4 @@
-package me.mrgraycat.eglow.gui.manager;
+package me.MrGraycat.eglow.gui.manager;
 
 import lombok.Getter;
 import org.bukkit.entity.Player;

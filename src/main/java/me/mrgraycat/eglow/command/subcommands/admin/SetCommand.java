@@ -1,13 +1,13 @@
-package me.mrgraycat.eglow.command.subcommands.admin;
+package me.MrGraycat.eglow.command.subcommands.admin;
 
-import me.mrgraycat.eglow.command.SubCommand;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowEffect;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.enums.EnumUtil.EntityType;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.command.SubCommand;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
+import me.MrGraycat.eglow.config.EGlowMessageConfig.Message;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowEffect;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.command.CommandSender;
 
 import java.util.Set;
@@ -101,7 +101,7 @@ public class SetCommand extends SubCommand {
 				if (eGlowTarget.isGlowing()) {
 					eGlowTarget.disableGlow(false);
 
-					if (eGlowTarget.getEntityType().equals(EntityType.PLAYER) && MainConfig.SETTINGS_NOTIFICATIONS_TARGET_COMMAND.getBoolean())
+					if (eGlowTarget.getEntityType().equals(EnumUtil.EntityType.PLAYER) && MainConfig.SETTINGS_NOTIFICATIONS_TARGET_COMMAND.getBoolean())
 						ChatUtil.sendMsg(eGlowTarget.getPlayer(), Message.TARGET_NOTIFICATION_PREFIX.get() + Message.DISABLE_GLOW.get(), true);
 				}
 
@@ -110,7 +110,7 @@ public class SetCommand extends SubCommand {
 				if (!eGlowTarget.isSameGlow(eGlowEffect)) {
 					eGlowTarget.activateGlow(eGlowEffect);
 
-					if (eGlowTarget.getEntityType().equals(EntityType.PLAYER) && MainConfig.SETTINGS_NOTIFICATIONS_TARGET_COMMAND.getBoolean())
+					if (eGlowTarget.getEntityType().equals(EnumUtil.EntityType.PLAYER) && MainConfig.SETTINGS_NOTIFICATIONS_TARGET_COMMAND.getBoolean())
 						ChatUtil.sendMsg(eGlowTarget.getPlayer(), Message.TARGET_NOTIFICATION_PREFIX.get() + Message.NEW_GLOW.get(eGlowEffect.getDisplayName()), true);
 				}
 

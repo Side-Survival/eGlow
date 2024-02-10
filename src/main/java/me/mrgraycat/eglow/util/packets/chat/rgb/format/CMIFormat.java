@@ -1,4 +1,4 @@
-package me.mrgraycat.eglow.util.packets.chat.rgb.format;
+package me.MrGraycat.eglow.Util.packets.chat.rgb.format;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

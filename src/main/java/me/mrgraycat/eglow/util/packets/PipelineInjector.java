@@ -1,19 +1,19 @@
-package me.mrgraycat.eglow.util.packets;
+package me.MrGraycat.eglow.Util.packets;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.enums.Dependency;
-import me.mrgraycat.eglow.util.enums.EnumUtil;
-import me.mrgraycat.eglow.util.enums.EnumUtil.GlowVisibility;
-import me.mrgraycat.eglow.util.packets.outgoing.PacketPlayOut;
-import me.mrgraycat.eglow.util.packets.outgoing.PacketPlayOutEntityMetadata;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.Util.enums.Dependency;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.Util.enums.EnumUtil.GlowVisibility;
+import me.MrGraycat.eglow.Util.packets.outgoing.PacketPlayOut;
+import me.MrGraycat.eglow.Util.packets.outgoing.PacketPlayOutEntityMetadata;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 
 import java.util.*;
 

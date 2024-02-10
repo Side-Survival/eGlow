@@ -1,12 +1,12 @@
-package me.mrgraycat.eglow.data;
+package me.MrGraycat.eglow.data;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.addon.citizens.EGlowCitizensTrait;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.util.packets.PacketUtil;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.packets.PacketUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.addon.citizens.EGlowCitizensTrait;
+import me.MrGraycat.eglow.config.EGlowMessageConfig.Message;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

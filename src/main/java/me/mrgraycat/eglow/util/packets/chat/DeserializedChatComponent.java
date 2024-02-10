@@ -1,7 +1,7 @@
-package me.mrgraycat.eglow.util.packets.chat;
+package me.MrGraycat.eglow.Util.packets.chat;
 
-import me.mrgraycat.eglow.util.packets.ProtocolVersion;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.packets.ProtocolVersion;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -114,14 +114,14 @@ public class DeserializedChatComponent extends IChatBaseComponent {
 		getModifier().setUnderlined(getBoolean(jsonObject, "underlined"));
 		getModifier().setStrikethrough(getBoolean(jsonObject, "strikethrough"));
 		getModifier().setObfuscated(getBoolean(jsonObject, "obfuscated"));
-		getModifier().setColor(me.mrgraycat.eglow.util.packets.chat.TextColor.fromString(((String) jsonObject.get("color"))));
+		getModifier().setColor(TextColor.fromString(((String) jsonObject.get("color"))));
 		if (jsonObject.containsKey("extra")) {
 			List<Object> list = (List<Object>) jsonObject.get("extra");
 			for (Object extra : list) {
 				String string = extra.toString();
 				//reverting .toString() removing "" for simple text
 				if (!string.startsWith("{")) string = "\"" + string + "\"";
-				addExtra(me.mrgraycat.eglow.util.packets.chat.IChatBaseComponent.deserialize(string));
+				addExtra(IChatBaseComponent.deserialize(string));
 			}
 		}
 	}

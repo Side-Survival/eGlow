@@ -1,4 +1,4 @@
-package me.mrgraycat.eglow.util.packets.chat;
+package me.MrGraycat.eglow.Util.packets.chat;
 
 import java.awt.*;
 import java.util.Objects;

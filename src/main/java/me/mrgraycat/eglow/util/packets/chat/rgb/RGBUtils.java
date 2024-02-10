@@ -1,12 +1,12 @@
-package me.mrgraycat.eglow.util.packets.chat.rgb;
+package me.MrGraycat.eglow.Util.packets.chat.rgb;
 
-import me.mrgraycat.eglow.util.packets.chat.EnumChatFormat;
-import me.mrgraycat.eglow.util.packets.chat.TextColor;
-import me.mrgraycat.eglow.util.packets.chat.rgb.format.*;
-import me.mrgraycat.eglow.util.packets.chat.rgb.gradient.CMIGradient;
-import me.mrgraycat.eglow.util.packets.chat.rgb.gradient.CommonGradient;
-import me.mrgraycat.eglow.util.packets.chat.rgb.gradient.GradientPattern;
-import me.mrgraycat.eglow.util.packets.chat.rgb.gradient.KyoriGradient;
+import me.MrGraycat.eglow.Util.packets.chat.EnumChatFormat;
+import me.MrGraycat.eglow.Util.packets.chat.TextColor;
+import me.MrGraycat.eglow.Util.packets.chat.rgb.gradient.CMIGradient;
+import me.MrGraycat.eglow.Util.packets.chat.rgb.gradient.CommonGradient;
+import me.MrGraycat.eglow.Util.packets.chat.rgb.gradient.GradientPattern;
+import me.MrGraycat.eglow.Util.packets.chat.rgb.gradient.KyoriGradient;
+import me.MrGraycat.eglow.Util.packets.chat.rgb.format.*;
 
 import java.util.regex.Pattern;
 

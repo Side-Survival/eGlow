@@ -1,4 +1,4 @@
-package me.mrgraycat.eglow.util.enums;
+package me.MrGraycat.eglow.Util.enums;
 
 public class EnumUtil {
 

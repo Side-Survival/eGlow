@@ -1,14 +1,14 @@
-package me.mrgraycat.eglow.addon.tab;
+package me.MrGraycat.eglow.addon.tab;
 
 import lombok.Getter;
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.addon.AbstractAddonBase;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.DebugUtil;
-import me.mrgraycat.eglow.util.enums.Dependency;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.Util.DebugUtil;
+import me.MrGraycat.eglow.Util.enums.Dependency;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
+import me.MrGraycat.eglow.addon.AbstractAddonBase;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
 import me.neznamy.tab.api.TabAPI;
 import me.neznamy.tab.api.TabPlayer;
 import me.neznamy.tab.api.event.plugin.TabLoadEvent;

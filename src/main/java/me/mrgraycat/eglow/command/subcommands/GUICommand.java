@@ -1,11 +1,11 @@
-package me.mrgraycat.eglow.command.subcommands;
+package me.MrGraycat.eglow.command.subcommands;
 
-import me.mrgraycat.eglow.command.SubCommand;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.gui.menus.EGlowMainMenu;
-import me.mrgraycat.eglow.util.enums.EnumUtil;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
+import me.MrGraycat.eglow.command.SubCommand;
+import me.MrGraycat.eglow.config.EGlowMessageConfig;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.gui.menus.EGlowMainMenu;
 import org.bukkit.command.CommandSender;
 
 public class GUICommand extends SubCommand {
@@ -34,18 +34,18 @@ public class GUICommand extends SubCommand {
 	public void perform(CommandSender sender, EGlowPlayer eGlowPlayer, String[] args) {
 		switch (eGlowPlayer.getGlowDisableReason()) {
 			case BLOCKEDWORLD:
-				ChatUtil.sendMsg(sender, Message.WORLD_BLOCKED.get(), true);
+				ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.WORLD_BLOCKED.get(), true);
 				return;
 			case INVISIBLE:
-				ChatUtil.sendMsg(sender, Message.INVISIBILITY_BLOCKED.get(), true);
+				ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.INVISIBILITY_BLOCKED.get(), true);
 				return;
 			case ANIMATION:
-				ChatUtil.sendMsg(sender, Message.ANIMATION_BLOCKED.get(), true);
+				ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.ANIMATION_BLOCKED.get(), true);
 				return;
 		}
 
 		if (eGlowPlayer.getGlowVisibility().equals(EnumUtil.GlowVisibility.UNSUPPORTEDCLIENT))
-			ChatUtil.sendPlainMsg(sender, Message.UNSUPPORTED_GLOW.get(), true);
+			ChatUtil.sendPlainMsg(sender, EGlowMessageConfig.Message.UNSUPPORTED_GLOW.get(), true);
 		
 		new EGlowMainMenu(eGlowPlayer).openInventory();
 	}

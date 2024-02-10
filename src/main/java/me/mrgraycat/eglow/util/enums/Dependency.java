@@ -1,4 +1,4 @@
-package me.mrgraycat.eglow.util.enums;
+package me.MrGraycat.eglow.Util.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

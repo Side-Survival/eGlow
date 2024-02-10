@@ -1,7 +1,7 @@
-package me.mrgraycat.eglow.util.packets.datawatcher;
+package me.MrGraycat.eglow.Util.packets.datawatcher;
 
-import me.mrgraycat.eglow.util.packets.NMSHook;
-import me.mrgraycat.eglow.util.packets.NMSStorage;
+import me.MrGraycat.eglow.Util.packets.NMSHook;
+import me.MrGraycat.eglow.Util.packets.NMSStorage;
 
 public class DataWatcherItem {
 	//type of value (position + data type (1.9+))

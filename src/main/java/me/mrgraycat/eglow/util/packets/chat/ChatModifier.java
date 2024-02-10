@@ -1,6 +1,6 @@
-package me.mrgraycat.eglow.util.packets.chat;
+package me.MrGraycat.eglow.Util.packets.chat;
 
-import me.mrgraycat.eglow.util.packets.ProtocolVersion;
+import me.MrGraycat.eglow.Util.packets.ProtocolVersion;
 import org.json.simple.JSONObject;
 
 public class ChatModifier {

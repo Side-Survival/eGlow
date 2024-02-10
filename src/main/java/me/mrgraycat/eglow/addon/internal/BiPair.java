@@ -1,4 +1,4 @@
-package me.mrgraycat.eglow.addon.internal;
+package me.MrGraycat.eglow.addon.internal;
 
 import java.util.Objects;
 

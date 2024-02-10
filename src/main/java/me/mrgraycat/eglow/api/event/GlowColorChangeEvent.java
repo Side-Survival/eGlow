@@ -1,4 +1,4 @@
-package me.mrgraycat.eglow.api.event;
+package me.MrGraycat.eglow.API.event;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

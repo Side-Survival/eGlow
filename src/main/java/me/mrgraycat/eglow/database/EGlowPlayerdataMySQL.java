@@ -1,11 +1,11 @@
-package me.mrgraycat.eglow.database;
+package me.MrGraycat.eglow.database;
 
 import lombok.Getter;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.enums.EnumUtil;
-import me.mrgraycat.eglow.util.packets.NMSHook;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.Util.packets.NMSHook;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;

@@ -1,7 +1,7 @@
-package me.mrgraycat.eglow.addon.tab;
+package me.MrGraycat.eglow.addon.tab;
 
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.api.event.GlowColorChangeEvent;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.API.event.GlowColorChangeEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;

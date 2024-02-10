@@ -1,8 +1,8 @@
-package me.mrgraycat.eglow.util.packets;
+package me.MrGraycat.eglow.Util.packets;
 
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.DebugUtil;
-import me.mrgraycat.eglow.util.enums.Dependency;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.Util.DebugUtil;
+import me.MrGraycat.eglow.Util.enums.Dependency;
 import org.bukkit.entity.Player;
 import us.myles.ViaVersion.api.Via;
 

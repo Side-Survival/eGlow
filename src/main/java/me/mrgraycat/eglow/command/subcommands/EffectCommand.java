@@ -1,12 +1,12 @@
-package me.mrgraycat.eglow.command.subcommands;
+package me.MrGraycat.eglow.command.subcommands;
 
-import me.mrgraycat.eglow.command.SubCommand;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowEffect;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.enums.EnumUtil.GlowVisibility;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.command.SubCommand;
+import me.MrGraycat.eglow.config.EGlowMessageConfig.Message;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowEffect;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.command.CommandSender;
 
 public class EffectCommand extends SubCommand {
@@ -92,7 +92,7 @@ public class EffectCommand extends SubCommand {
 				eGlowPlayer.activateGlow(eGlowEffect);
 				ChatUtil.sendMsg(sender, Message.NEW_GLOW.get(eGlowEffect.getDisplayName()), true);
 
-				if (eGlowPlayer.getGlowVisibility().equals(GlowVisibility.UNSUPPORTEDCLIENT))
+				if (eGlowPlayer.getGlowVisibility().equals(EnumUtil.GlowVisibility.UNSUPPORTEDCLIENT))
 					ChatUtil.sendMsg(sender, Message.UNSUPPORTED_GLOW.get(), true);
 			}
 		} else {

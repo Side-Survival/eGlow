@@ -1,4 +1,4 @@
-package me.mrgraycat.eglow.addon;
+package me.MrGraycat.eglow.addon;
 
 public class FancyNPC {
 }

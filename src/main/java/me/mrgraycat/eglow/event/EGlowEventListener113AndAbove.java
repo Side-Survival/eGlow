@@ -1,12 +1,12 @@
-package me.mrgraycat.eglow.event;
+package me.MrGraycat.eglow.event;
 
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.enums.EnumUtil.GlowDisableReason;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
+import me.MrGraycat.eglow.config.EGlowMessageConfig;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,8 +35,8 @@ public class EGlowEventListener113AndAbove implements Listener {
 						return;
 
 					if (!MainConfig.SETTINGS_DISABLE_GLOW_WHEN_INVISIBLE.getBoolean()) {
-						if (eGlowPlayer.getGlowDisableReason().equals(GlowDisableReason.INVISIBLE)) {
-							eGlowPlayer.setGlowDisableReason(GlowDisableReason.NONE);
+						if (eGlowPlayer.getGlowDisableReason().equals(EnumUtil.GlowDisableReason.INVISIBLE)) {
+							eGlowPlayer.setGlowDisableReason(EnumUtil.GlowDisableReason.NONE);
 						}
 						return;
 					}
@@ -44,21 +44,21 @@ public class EGlowEventListener113AndAbove implements Listener {
 					if (event.getNewEffect() != null && event.getNewEffect().getType().equals(PotionEffectType.INVISIBILITY)) {
 						if (eGlowPlayer.isGlowing()) {
 							eGlowPlayer.disableGlow(false);
-							eGlowPlayer.setGlowDisableReason(GlowDisableReason.INVISIBLE);
+							eGlowPlayer.setGlowDisableReason(EnumUtil.GlowDisableReason.INVISIBLE);
 
 							if (MainConfig.SETTINGS_NOTIFICATIONS_INVISIBILITY.getBoolean())
-								ChatUtil.sendMsg(eGlowPlayer.getPlayer(), Message.INVISIBILITY_BLOCKED.get(), true);
+								ChatUtil.sendMsg(eGlowPlayer.getPlayer(), EGlowMessageConfig.Message.INVISIBILITY_BLOCKED.get(), true);
 							return;
 						}
 					}
 
 					if (event.getNewEffect() == null && event.getOldEffect() != null && event.getOldEffect().getType().equals(PotionEffectType.INVISIBILITY)) {
-						if (eGlowPlayer.getGlowDisableReason().equals(GlowDisableReason.INVISIBLE)) {
-							if (eGlowPlayer.setGlowDisableReason(GlowDisableReason.NONE).equals(GlowDisableReason.NONE)) {
+						if (eGlowPlayer.getGlowDisableReason().equals(EnumUtil.GlowDisableReason.INVISIBLE)) {
+							if (eGlowPlayer.setGlowDisableReason(EnumUtil.GlowDisableReason.NONE).equals(EnumUtil.GlowDisableReason.NONE)) {
 								eGlowPlayer.activateGlow();
 
 								if (MainConfig.SETTINGS_NOTIFICATIONS_INVISIBILITY.getBoolean())
-									ChatUtil.sendMsg(eGlowPlayer.getPlayer(), Message.INVISIBILITY_ALLOWED.get(), true);
+									ChatUtil.sendMsg(eGlowPlayer.getPlayer(), EGlowMessageConfig.Message.INVISIBILITY_ALLOWED.get(), true);
 							}
 						}
 					}

@@ -1,7 +1,7 @@
-package me.mrgraycat.eglow.config;
+package me.MrGraycat.eglow.config;
 
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;

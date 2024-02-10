@@ -1,11 +1,12 @@
-package me.mrgraycat.eglow.command;
+package me.MrGraycat.eglow.command;
 
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.addon.citizens.EGlowCitizensTrait;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.addon.citizens.EGlowCitizensTrait;
+import me.MrGraycat.eglow.config.EGlowMessageConfig.Message;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;

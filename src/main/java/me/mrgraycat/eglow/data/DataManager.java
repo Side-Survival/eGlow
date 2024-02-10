@@ -1,13 +1,13 @@
-package me.mrgraycat.eglow.data;
+package me.MrGraycat.eglow.data;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.api.event.GlowColorChangeEvent;
-import me.mrgraycat.eglow.config.EGlowCustomEffectsConfig.Effect;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.API.event.GlowColorChangeEvent;
+import me.MrGraycat.eglow.config.EGlowCustomEffectsConfig.Effect;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
+import me.MrGraycat.eglow.config.EGlowMessageConfig.Message;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

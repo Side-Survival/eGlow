@@ -1,4 +1,4 @@
-package me.mrgraycat.eglow.addon.internal;
+package me.MrGraycat.eglow.addon.internal;
 
 import org.bukkit.World;
 import org.bukkit.block.Block;

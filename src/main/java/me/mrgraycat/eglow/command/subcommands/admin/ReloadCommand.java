@@ -1,18 +1,17 @@
-package me.mrgraycat.eglow.command.subcommands.admin;
+package me.MrGraycat.eglow.command.subcommands.admin;
 
-import me.mrgraycat.eglow.addon.internal.AdvancedGlowVisibilityAddon;
-import me.mrgraycat.eglow.command.SubCommand;
-import me.mrgraycat.eglow.config.EGlowCustomEffectsConfig;
-import me.mrgraycat.eglow.config.EGlowMainConfig;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.config.EGlowMessageConfig;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.data.DataManager;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.database.EGlowPlayerdataManager;
-import me.mrgraycat.eglow.util.enums.EnumUtil;
-import me.mrgraycat.eglow.util.packets.NMSHook;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.Util.packets.NMSHook;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
+import me.MrGraycat.eglow.addon.internal.AdvancedGlowVisibilityAddon;
+import me.MrGraycat.eglow.command.SubCommand;
+import me.MrGraycat.eglow.config.EGlowMessageConfig;
+import me.MrGraycat.eglow.data.DataManager;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.database.EGlowPlayerdataManager;
+import me.MrGraycat.eglow.config.EGlowCustomEffectsConfig;
+import me.MrGraycat.eglow.config.EGlowMainConfig;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
 import org.bukkit.command.CommandSender;
 
 public class ReloadCommand extends SubCommand {
@@ -73,9 +72,9 @@ public class ReloadCommand extends SubCommand {
 				}
 			}
 
-			ChatUtil.sendMsg(sender, Message.RELOAD_SUCCESS.get(), true);
+			ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.RELOAD_SUCCESS.get(), true);
 		} else {
-			ChatUtil.sendMsg(sender, Message.RELOAD_FAIL.get(), true);
+			ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.RELOAD_FAIL.get(), true);
 		}
 	}
 }

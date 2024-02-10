@@ -1,4 +1,4 @@
-package me.mrgraycat.eglow.addon.citizens;
+package me.MrGraycat.eglow.addon.citizens;
 
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;

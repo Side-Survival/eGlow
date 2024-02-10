@@ -1,4 +1,4 @@
-package me.mrgraycat.eglow.util.packets.chat;
+package me.MrGraycat.eglow.Util.packets.chat;
 
 public class Preconditions {
 	public static void checkNotNull(Object obj, String name) {

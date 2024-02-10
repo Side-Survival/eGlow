@@ -1,17 +1,17 @@
-package me.mrgraycat.eglow.data;
+package me.MrGraycat.eglow.data;
 
 import lombok.Getter;
 import lombok.Setter;
+import me.MrGraycat.eglow.Util.enums.Dependency;
+import me.MrGraycat.eglow.Util.enums.EnumUtil;
+import me.MrGraycat.eglow.Util.packets.PacketUtil;
+import me.MrGraycat.eglow.Util.packets.ProtocolVersion;
+import me.MrGraycat.eglow.Util.packets.chat.EnumChatFormat;
 import me.clip.placeholderapi.PlaceholderAPI;
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.config.EGlowMainConfig.MainConfig;
-import me.mrgraycat.eglow.config.EGlowMessageConfig.Message;
-import me.mrgraycat.eglow.util.enums.Dependency;
-import me.mrgraycat.eglow.util.enums.EnumUtil.*;
-import me.mrgraycat.eglow.util.packets.PacketUtil;
-import me.mrgraycat.eglow.util.packets.ProtocolVersion;
-import me.mrgraycat.eglow.util.packets.chat.EnumChatFormat;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
+import me.MrGraycat.eglow.config.EGlowMessageConfig.Message;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.trait.ScoreboardTrait;
 import org.bukkit.ChatColor;
@@ -23,7 +23,7 @@ import java.util.*;
 @Getter
 @Setter
 public class EGlowPlayer {
-	private final EntityType entityType;
+	private final EnumUtil.EntityType entityType;
 
 	private NPC citizensNPC;
 	//private Npc fancyNPC;
@@ -43,14 +43,14 @@ public class EGlowPlayer {
 	private boolean glowOnJoin;
 	private boolean activeOnQuit;
 	private boolean saveData = false;
-	private GlowDisableReason glowDisableReason = GlowDisableReason.NONE;
-	private GlowVisibility glowVisibility;
+	private EnumUtil.GlowDisableReason glowDisableReason = EnumUtil.GlowDisableReason.NONE;
+	private EnumUtil.GlowVisibility glowVisibility;
 
-	private GlowTargetMode glowTargetMode = GlowTargetMode.ALL;
+	private EnumUtil.GlowTargetMode glowTargetMode = EnumUtil.GlowTargetMode.ALL;
 	private List<Player> customTargetList = new ArrayList<>();
 
 	public EGlowPlayer(Player player) {
-		this.entityType = EntityType.PLAYER;
+		this.entityType = EnumUtil.EntityType.PLAYER;
 		this.player = player;
 		this.displayName = player.getName();
 		this.uuid = player.getUniqueId();
@@ -59,16 +59,16 @@ public class EGlowPlayer {
 		this.version = ProtocolVersion.getPlayerVersion(this);
 
 		if (this.version.getNetworkId() <= 110 && !this.version.getFriendlyName().equals("1.9.4")) {
-			this.glowVisibility = GlowVisibility.UNSUPPORTEDCLIENT;
+			this.glowVisibility = EnumUtil.GlowVisibility.UNSUPPORTEDCLIENT;
 		} else {
-			this.glowVisibility = GlowVisibility.ALL;
+			this.glowVisibility = EnumUtil.GlowVisibility.ALL;
 		}
 
 		setupForceGlows();
 	}
 
 	public EGlowPlayer(NPC npc) {
-		this.entityType = EntityType.CITIZENNPC;
+		this.entityType = EnumUtil.EntityType.CITIZENNPC;
 		this.citizensNPC = npc;
 		this.displayName = npc.getName();
 	}
@@ -136,7 +136,7 @@ public class EGlowPlayer {
 			}
 		}
 
-		if (getEntityType().equals(EntityType.CITIZENNPC))
+		if (getEntityType().equals(EnumUtil.EntityType.CITIZENNPC))
 			return;
 
 		updatePlayerTabname();
@@ -299,12 +299,12 @@ public class EGlowPlayer {
 		if (!MainConfig.WORLD_ENABLE.getBoolean())
 			return false;
 
-		GlowWorldAction action;
+		EnumUtil.GlowWorldAction action;
 
 		try {
-			action = GlowWorldAction.valueOf(MainConfig.WORLD_ACTION.getString().toUpperCase() + "ED");
+			action = EnumUtil.GlowWorldAction.valueOf(MainConfig.WORLD_ACTION.getString().toUpperCase() + "ED");
 		} catch (IllegalArgumentException e) {
-			action = GlowWorldAction.UNKNOWN;
+			action = EnumUtil.GlowWorldAction.UNKNOWN;
 		}
 
 		List<String> worldList = MainConfig.WORLD_LIST.getStringList();
@@ -334,13 +334,13 @@ public class EGlowPlayer {
 		return this.glowStatus;
 	}
 
-	public void setForcedGlowDisableReason(GlowDisableReason reason) {
-		if (reason.equals(GlowDisableReason.ANIMATION))
-			reason = GlowDisableReason.NONE;
+	public void setForcedGlowDisableReason(EnumUtil.GlowDisableReason reason) {
+		if (reason.equals(EnumUtil.GlowDisableReason.ANIMATION))
+			reason = EnumUtil.GlowDisableReason.NONE;
 		this.glowDisableReason = reason;
 	}
 
-	public GlowDisableReason setGlowDisableReason(GlowDisableReason reason) {
+	public EnumUtil.GlowDisableReason setGlowDisableReason(EnumUtil.GlowDisableReason reason) {
 		switch (reason) {
 			case BLOCKEDWORLD:
 			case INVISIBLE:
@@ -349,12 +349,12 @@ public class EGlowPlayer {
 			case NONE:
 				if (!this.glowDisableReason.equals(reason)) {
 					if (isInBlockedWorld()) {
-						this.glowDisableReason = GlowDisableReason.BLOCKEDWORLD;
+						this.glowDisableReason = EnumUtil.GlowDisableReason.BLOCKEDWORLD;
 						return getGlowDisableReason();
 					}
 
 					if (isInvisible()) {
-						this.glowDisableReason = GlowDisableReason.INVISIBLE;
+						this.glowDisableReason = EnumUtil.GlowDisableReason.INVISIBLE;
 						return getGlowDisableReason();
 					}
 				}
@@ -365,8 +365,8 @@ public class EGlowPlayer {
 		return getGlowDisableReason();
 	}
 
-	public void setGlowVisibility(GlowVisibility visibility) {
-		if (!this.glowVisibility.equals(GlowVisibility.UNSUPPORTEDCLIENT)) {
+	public void setGlowVisibility(EnumUtil.GlowVisibility visibility) {
+		if (!this.glowVisibility.equals(EnumUtil.GlowVisibility.UNSUPPORTEDCLIENT)) {
 			this.glowVisibility = visibility;
 
 			if (skipSaveData())
@@ -375,7 +375,7 @@ public class EGlowPlayer {
 
 	}
 
-	public void setGlowTargetMode(GlowTargetMode glowTarget) {
+	public void setGlowTargetMode(EnumUtil.GlowTargetMode glowTarget) {
 		if (glowTarget != this.glowTargetMode) {
 			this.glowTargetMode = glowTarget;
 			PacketUtil.updateGlowTarget(this);
@@ -396,8 +396,8 @@ public class EGlowPlayer {
 			getGlowTargets().add(getPlayer());
 		}
 
-		if (getGlowTargetMode().equals(GlowTargetMode.ALL)) {
-			setGlowTargetMode(GlowTargetMode.CUSTOM);
+		if (getGlowTargetMode().equals(EnumUtil.GlowTargetMode.ALL)) {
+			setGlowTargetMode(EnumUtil.GlowTargetMode.CUSTOM);
 		}
 	}
 
@@ -407,8 +407,8 @@ public class EGlowPlayer {
 		}
 		getGlowTargets().remove(player);
 
-		if (getGlowTargetMode().equals(GlowTargetMode.CUSTOM) && getGlowTargets().isEmpty()) {
-			setGlowTargetMode(GlowTargetMode.ALL);
+		if (getGlowTargetMode().equals(EnumUtil.GlowTargetMode.CUSTOM) && getGlowTargets().isEmpty()) {
+			setGlowTargetMode(EnumUtil.GlowTargetMode.ALL);
 		}
 	}
 
@@ -422,8 +422,8 @@ public class EGlowPlayer {
 			setCustomTargetList(targets);
 		}
 
-		if (getGlowTargetMode().equals(GlowTargetMode.ALL)) {
-			setGlowTargetMode(GlowTargetMode.CUSTOM);
+		if (getGlowTargetMode().equals(EnumUtil.GlowTargetMode.ALL)) {
+			setGlowTargetMode(EnumUtil.GlowTargetMode.CUSTOM);
 		} else {
 			for (Player player : Objects.requireNonNull(targets, "Can't loop over 'null'")) {
 				PacketUtil.glowTargetChange(this, player, true);
@@ -433,7 +433,7 @@ public class EGlowPlayer {
 
 	public void resetGlowTargets() {
 		getGlowTargets().clear();
-		setGlowTargetMode(GlowTargetMode.ALL);
+		setGlowTargetMode(EnumUtil.GlowTargetMode.ALL);
 	}
 
 	public void setGlowOnJoin(boolean status) {

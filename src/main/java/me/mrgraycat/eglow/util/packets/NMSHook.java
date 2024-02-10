@@ -1,12 +1,12 @@
-package me.mrgraycat.eglow.util.packets;
+package me.MrGraycat.eglow.Util.packets;
 
-import me.mrgraycat.eglow.EGlow;
-import me.mrgraycat.eglow.config.EGlowMainConfig;
-import me.mrgraycat.eglow.data.EGlowPlayer;
-import me.mrgraycat.eglow.util.packets.datawatcher.DataWatcher;
-import me.mrgraycat.eglow.util.packets.datawatcher.DataWatcherObject;
-import me.mrgraycat.eglow.util.packets.datawatcher.DataWatcherRegistry;
-import me.mrgraycat.eglow.util.text.ChatUtil;
+import me.MrGraycat.eglow.EGlow;
+import me.MrGraycat.eglow.config.EGlowMainConfig;
+import me.MrGraycat.eglow.data.EGlowPlayer;
+import me.MrGraycat.eglow.Util.packets.datawatcher.DataWatcher;
+import me.MrGraycat.eglow.Util.packets.datawatcher.DataWatcherObject;
+import me.MrGraycat.eglow.Util.packets.datawatcher.DataWatcherRegistry;
+import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.entity.Player;

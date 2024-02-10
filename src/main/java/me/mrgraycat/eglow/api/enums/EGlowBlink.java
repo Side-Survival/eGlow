@@ -1,4 +1,4 @@
-package me.mrgraycat.eglow.api.enums;
+package me.MrGraycat.eglow.API.enums;
 
 public enum EGlowBlink {
 	RED_SLOW,
