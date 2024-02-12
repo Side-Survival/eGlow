@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -59,9 +60,16 @@ public class ChatUtil {
 		return text.replace("&", "§");
 	}
 
+	public static List<String> translateColors(List<String> input) {
+        input.replaceAll(ChatUtil::translateColors);
+		return input;
+	}
+
 	public static void sendPlainMsg(Object sender, String message, boolean withPrefix) {
+		Player pSender = sender instanceof Player player ? (Player) sender : null;
+
 		if (!message.isEmpty()) {
-			message = translateColors(((withPrefix) ? EGlowMessageConfig.Message.PREFIX.get() : "") + message);
+			message = translateColors(((withPrefix) ? EGlowMessageConfig.Message.PREFIX.get(pSender) : "") + message);
 
 			if (sender instanceof Player) {
 				((Player) sender).sendMessage(message);
@@ -80,8 +88,10 @@ public class ChatUtil {
 	}
 
 	public static void sendMsg(Object sender, String message, boolean withPrefix) {
+		Player pSender = sender instanceof Player player ? (Player) sender : null;
+
 		if (!message.isEmpty()) {
-			message = translateColors(((withPrefix) ? EGlowMessageConfig.Message.PREFIX.get() : "") + message);
+			message = translateColors(((withPrefix) ? EGlowMessageConfig.Message.PREFIX.get(pSender) : "") + message);
 
 			if (sender instanceof Player) {
 				if (MainConfig.ACTIONBARS_ENABLE.getBoolean()) {
@@ -96,7 +106,7 @@ public class ChatUtil {
 	}
 
 	public static void sendToConsole(String message, boolean withPrefix) {
-		Bukkit.getConsoleSender().sendMessage(translateColors(((withPrefix) ? EGlowMessageConfig.Message.PREFIX.get() : "") + message));
+		Bukkit.getConsoleSender().sendMessage(translateColors(((withPrefix) ? EGlowMessageConfig.Message.PREFIX.get((Player) null) : "") + message));
 	}
 
 	private static void sendActionbar(Player player, String message) {
@@ -119,7 +129,7 @@ public class ChatUtil {
 	}
 
 	public static String getEffectChatName(EGlowPlayer eGlowPlayer) {
-		return (eGlowPlayer.getGlowEffect() == null) ? EGlowMessageConfig.Message.GUI_NOT_AVAILABLE.get() : eGlowPlayer.getGlowEffect().getDisplayName();
+		return (eGlowPlayer.getGlowEffect() == null) ? EGlowMessageConfig.Message.GUI_NOT_AVAILABLE.get(eGlowPlayer.getPlayer()) : eGlowPlayer.getGlowEffect().getDisplayName();
 	}
 
 	public static String getEffectName(String effect) {

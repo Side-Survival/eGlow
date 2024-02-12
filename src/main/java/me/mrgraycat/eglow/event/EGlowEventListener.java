@@ -75,13 +75,13 @@ public class EGlowEventListener implements Listener {
 				if (eGlowPlayer.isGlowing()) {
 					eGlowPlayer.disableGlow(false);
 					eGlowPlayer.setGlowDisableReason(EnumUtil.GlowDisableReason.BLOCKEDWORLD);
-					ChatUtil.sendMsg(player, Message.WORLD_BLOCKED.get(), true);
+					ChatUtil.sendMsg(player, Message.WORLD_BLOCKED.get(player), true);
 				}
 			} else {
 				if (eGlowPlayer.getGlowDisableReason().equals(EnumUtil.GlowDisableReason.BLOCKEDWORLD)) {
 					if (eGlowPlayer.setGlowDisableReason(EnumUtil.GlowDisableReason.NONE).equals(EnumUtil.GlowDisableReason.NONE)) {
 						eGlowPlayer.activateGlow();
-						ChatUtil.sendMsg(player, Message.WORLD_ALLOWED.get(), true);
+						ChatUtil.sendMsg(player, Message.WORLD_ALLOWED.get(player), true);
 					}
 				}
 			}
@@ -132,20 +132,20 @@ public class EGlowEventListener implements Listener {
 
 				switch (glowDisableReason) {
 					case BLOCKEDWORLD:
-						ChatUtil.sendMsg(player, Message.WORLD_BLOCKED.get(), true);
+						ChatUtil.sendMsg(player, Message.WORLD_BLOCKED.get(player), true);
 						break;
 					case INVISIBLE:
-						ChatUtil.sendMsg(player, Message.INVISIBILITY_BLOCKED.get(), true);
+						ChatUtil.sendMsg(player, Message.INVISIBILITY_BLOCKED.get(player), true);
 						break;
 					case ANIMATION:
-						ChatUtil.sendMsg(player, Message.ANIMATION_BLOCKED.get(), true);
+						ChatUtil.sendMsg(player, Message.ANIMATION_BLOCKED.get(player), true);
 						break;
 					default:
 						if (eGlowPlayer.getGlowEffect() != null) {
 							eGlowPlayer.activateGlow();
 
 							if (MainConfig.SETTINGS_JOIN_MENTION_GLOW_STATE.getBoolean() && player.hasPermission("eglow.option.glowstate"))
-								ChatUtil.sendMsg(player, Message.GLOWING_STATE_ON_JOIN.get(eGlowPlayer.getGlowEffect().getDisplayName()), true);
+								ChatUtil.sendMsg(player, Message.GLOWING_STATE_ON_JOIN.get(player, eGlowPlayer.getGlowEffect().getDisplayName()), true);
 						} else {
 							sendNoGlowMessage(eGlowPlayer);
 						}
@@ -184,6 +184,6 @@ public class EGlowEventListener implements Listener {
 
 	private static void sendNoGlowMessage(EGlowPlayer eGlowPlayer) {
 		if (MainConfig.SETTINGS_JOIN_MENTION_GLOW_STATE.getBoolean() && eGlowPlayer.hasPermission("eglow.option.glowstate"))
-			ChatUtil.sendMsg(eGlowPlayer.getPlayer(), Message.NON_GLOWING_STATE_ON_JOIN.get(), true);
+			ChatUtil.sendMsg(eGlowPlayer.getPlayer(), Message.NON_GLOWING_STATE_ON_JOIN.get(eGlowPlayer.getPlayer()), true);
 	}
 }

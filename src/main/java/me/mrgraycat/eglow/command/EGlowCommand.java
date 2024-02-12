@@ -2,6 +2,7 @@ package me.MrGraycat.eglow.command;
 
 import me.MrGraycat.eglow.Util.packets.NMSHook;
 import me.MrGraycat.eglow.command.subcommands.admin.SetCommand;
+import me.MrGraycat.eglow.config.EGlowMessageConfig;
 import me.MrGraycat.eglow.data.DataManager;
 import me.MrGraycat.eglow.data.EGlowEffect;
 import me.MrGraycat.eglow.data.EGlowPlayer;
@@ -51,9 +52,15 @@ public class EGlowCommand implements CommandExecutor, TabExecutor {
 			EGlowPlayer eGlowPlayer = null;
 			String[] argsCopy = args.clone();
 
+			Player pSender = (sender instanceof Player player) ? player : null;
+
 			//Get the correct subcommand
 			if (args.length == 0) {
 				args = new String[]{"gui"};
+			} else if (args.length == 1 && args[0].equalsIgnoreCase("updatelang")) {
+				EGlowMessageConfig.updateLang();
+				sender.sendMessage("Default lang map reloaded!");
+				return true;
 			}
 
 			if (DataManager.isValidEffect(args[0], true) || args[0].equalsIgnoreCase("blink") || DataManager.isValidEffect(args[0], false)
@@ -69,15 +76,15 @@ public class EGlowCommand implements CommandExecutor, TabExecutor {
 			}
 
 			if (subCommand == null) {
-				ChatUtil.sendMsg(sender, Message.COMMAND_LIST.get(), true);
+				ChatUtil.sendMsg(sender, Message.COMMAND_LIST.get(pSender), true);
 				return true;
 			}
 			if (sender instanceof ConsoleCommandSender && subCommand.isPlayerCmd()) {
-				ChatUtil.sendMsg(sender, Message.PLAYER_ONLY.get(), true);
+				ChatUtil.sendMsg(sender, Message.PLAYER_ONLY.get(pSender), true);
 				return true;
 			}
 			if (!subCommand.getPermission().isEmpty() && !sender.hasPermission(subCommand.getPermission())) {
-				ChatUtil.sendMsg(sender, Message.NO_PERMISSION.get(), true);
+				ChatUtil.sendMsg(sender, Message.NO_PERMISSION.get(pSender), true);
 				return true;
 			}
 			if (sender instanceof Player) {

@@ -84,7 +84,7 @@ public class EGlowEffect {
 			if (eglowEntity != null) {
 				eglowEntity.disableGlow(true);
 				if (entity instanceof Player)
-					ChatUtil.sendMsg(eglowEntity.getPlayer(), Message.GLOW_REMOVED.get(), true);
+					ChatUtil.sendMsg(eglowEntity.getPlayer(), Message.GLOW_REMOVED.get(eglowEntity.getPlayer()), true);
 			}
 			getActiveEntities().remove(entity);
 		}

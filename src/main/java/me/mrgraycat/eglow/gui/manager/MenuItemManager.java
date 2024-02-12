@@ -85,7 +85,7 @@ public class MenuItemManager extends MenuManager {
 	 * @return Playerskull of the player
 	 */
 	public ItemStack createPlayerSkull(EGlowPlayer eGlowPlayer) {
-		ItemStack item = createItem(Material.valueOf(PLAYER_HEAD), EGlowMessageConfig.Message.GUI_SETTINGS_NAME.get(), 3, createInfoLore(eGlowPlayer));
+		ItemStack item = createItem(Material.valueOf(PLAYER_HEAD), EGlowMessageConfig.Message.GUI_SETTINGS_NAME.get(eGlowPlayer.getPlayer()), 3, createInfoLore(eGlowPlayer));
 
 		if (!EGlowMainConfig.MainConfig.SETTINGS_GUI_RENDER_SKULLS.getBoolean())
 			return item;
@@ -118,7 +118,7 @@ public class MenuItemManager extends MenuManager {
 	 * @return colored leather chestplate
 	 */
 	public ItemStack createLeatherColor(EGlowPlayer eGlowPlayer, String color, int red, int green, int blue) {
-		ItemStack item = createItem(Material.LEATHER_CHESTPLATE, EGlowMessageConfig.Message.GUI_COLOR.get(color), 0, createColorLore(eGlowPlayer, color));
+		ItemStack item = createItem(Material.LEATHER_CHESTPLATE, EGlowMessageConfig.Message.GUI_COLOR.get(eGlowPlayer.getPlayer(), color), 0, createColorLore(eGlowPlayer, color));
 		LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
 
 		Objects.requireNonNull(meta, "Unable to set item color because ItemMeta is null").setColor(Color.fromRGB(red, green, blue));
@@ -139,41 +139,43 @@ public class MenuItemManager extends MenuManager {
 	 */
 	public ItemStack createGlowingStatus(EGlowPlayer eGlowPlayer) {
 		List<String> prelores = new ArrayList<>();
+		Player player = eGlowPlayer.getPlayer();
 
-		prelores.add(EGlowMessageConfig.Message.GUI_GLOWING.get() + ((eGlowPlayer.isGlowing()) ? EGlowMessageConfig.Message.GUI_YES.get() : EGlowMessageConfig.Message.GUI_NO.get()));
-		prelores.add(EGlowMessageConfig.Message.GUI_LAST_GLOW.get() + ((eGlowPlayer.getGlowEffect() == null) ? EGlowMessageConfig.Message.GUI_NOT_AVAILABLE.get() : eGlowPlayer.getGlowEffect().getDisplayName()));
-		prelores.add(EGlowMessageConfig.Message.GUI_CLICK_TO_TOGGLE.get());
+		prelores.add(EGlowMessageConfig.Message.GUI_GLOWING.get(player) + ((eGlowPlayer.isGlowing()) ? EGlowMessageConfig.Message.GUI_YES.get(player) : EGlowMessageConfig.Message.GUI_NO.get(player)));
+		prelores.add(EGlowMessageConfig.Message.GUI_LAST_GLOW.get(player) + ((eGlowPlayer.getGlowEffect() == null) ? EGlowMessageConfig.Message.GUI_NOT_AVAILABLE.get(player) : eGlowPlayer.getGlowEffect().getDisplayName()));
+		prelores.add(EGlowMessageConfig.Message.GUI_CLICK_TO_TOGGLE.get(player));
 
 		String[] lores = new String[prelores.size()];
-		return (eGlowPlayer.isGlowing()) ? createItem(Material.GLOWSTONE_DUST, EGlowMessageConfig.Message.GUI_GLOW_ITEM_NAME.get(), 0, prelores.toArray(lores)) : createItem(Material.valueOf(GUNPOWDER), EGlowMessageConfig.Message.GUI_GLOW_ITEM_NAME.get(), 0, prelores.toArray(lores));
+		return (eGlowPlayer.isGlowing()) ? createItem(Material.GLOWSTONE_DUST, EGlowMessageConfig.Message.GUI_GLOW_ITEM_NAME.get(player), 0, prelores.toArray(lores)) : createItem(Material.valueOf(GUNPOWDER), EGlowMessageConfig.Message.GUI_GLOW_ITEM_NAME.get(player), 0, prelores.toArray(lores));
 	}
 
 	public ItemStack createGlowVisibility(EGlowPlayer eGlowPlayer) {
 		List<String> prelores = new ArrayList<>();
+		Player player = eGlowPlayer.getPlayer();
 		EnumUtil.GlowVisibility glowVisibility = eGlowPlayer.getGlowVisibility();
 
-		prelores.add(ChatUtil.translateColors("&f") + EGlowMessageConfig.Message.VISIBILITY_ALL.get());
-		prelores.add(ChatUtil.translateColors("&f") + EGlowMessageConfig.Message.VISIBILITY_OTHER.get());
-		prelores.add(ChatUtil.translateColors("&f") + EGlowMessageConfig.Message.VISIBILITY_OWN.get());
-		prelores.add(ChatUtil.translateColors("&f") + EGlowMessageConfig.Message.VISIBILITY_NONE.get());
-		prelores.add(EGlowMessageConfig.Message.GUI_CLICK_TO_CYCLE.get());
+		prelores.add(ChatUtil.translateColors("&f") + EGlowMessageConfig.Message.VISIBILITY_ALL.get(player));
+		prelores.add(ChatUtil.translateColors("&f") + EGlowMessageConfig.Message.VISIBILITY_OTHER.get(player));
+		prelores.add(ChatUtil.translateColors("&f") + EGlowMessageConfig.Message.VISIBILITY_OWN.get(player));
+		prelores.add(ChatUtil.translateColors("&f") + EGlowMessageConfig.Message.VISIBILITY_NONE.get(player));
+		prelores.add(EGlowMessageConfig.Message.GUI_CLICK_TO_CYCLE.get(player));
 
 		switch (glowVisibility) {
 			case ALL:
-				prelores.set(0, EGlowMessageConfig.Message.GLOW_VISIBILITY_INDICATOR.get() + prelores.get(0));
+				prelores.set(0, EGlowMessageConfig.Message.GLOW_VISIBILITY_INDICATOR.get(player) + prelores.get(0));
 				break;
 			case OTHER:
-				prelores.set(1, EGlowMessageConfig.Message.GLOW_VISIBILITY_INDICATOR.get() + prelores.get(1));
+				prelores.set(1, EGlowMessageConfig.Message.GLOW_VISIBILITY_INDICATOR.get(player) + prelores.get(1));
 				break;
 			case OWN:
-				prelores.set(2, EGlowMessageConfig.Message.GLOW_VISIBILITY_INDICATOR.get() + prelores.get(2));
+				prelores.set(2, EGlowMessageConfig.Message.GLOW_VISIBILITY_INDICATOR.get(player) + prelores.get(2));
 				break;
 			case NONE:
-				prelores.set(3, EGlowMessageConfig.Message.GLOW_VISIBILITY_INDICATOR.get() + prelores.get(3));
+				prelores.set(3, EGlowMessageConfig.Message.GLOW_VISIBILITY_INDICATOR.get(player) + prelores.get(3));
 				break;
 		}
 
-		return createItem(Material.valueOf(ENDER_EYE), EGlowMessageConfig.Message.GLOW_VISIBILITY_ITEM_NAME.get(), 0, prelores, 0);
+		return createItem(Material.valueOf(ENDER_EYE), EGlowMessageConfig.Message.GLOW_VISIBILITY_ITEM_NAME.get(player), 0, prelores, 0);
 	}
 
 	/**
@@ -201,13 +203,14 @@ public class MenuItemManager extends MenuManager {
 	 */
 	private String[] createColorLore(EGlowPlayer eGlowPlayer, String color) {
 		List<String> prelores = new ArrayList<>();
+		Player player = eGlowPlayer.getPlayer();
 		EGlowEffect eglowColor = DataManager.getEGlowEffect(color.replace("-", ""));
 		EGlowEffect eglowEffect = DataManager.getEGlowEffect("blink" + color.replace("-", "") + "slow");
 
-		prelores.add(EGlowMessageConfig.Message.GUI_LEFT_CLICK.get() + EGlowMessageConfig.Message.COLOR.get(color));
-		prelores.add(EGlowMessageConfig.Message.GUI_COLOR_PERMISSION.get() + hasPermission(eGlowPlayer, Objects.requireNonNull(eglowColor, "Unable to retrieve permission from effect").getPermissionNode()));
-		prelores.add(EGlowMessageConfig.Message.GUI_RIGHT_CLICK.get() + EGlowMessageConfig.Message.COLOR.get("effect-blink") + " " + EGlowMessageConfig.Message.COLOR.get(color));
-		prelores.add(EGlowMessageConfig.Message.GUI_BLINK_PERMISSION.get() + hasPermission(eGlowPlayer, Objects.requireNonNull(eglowEffect, "Unable to retrieve permission from effect").getPermissionNode()));
+		prelores.add(EGlowMessageConfig.Message.GUI_LEFT_CLICK.get(player) + EGlowMessageConfig.Message.COLOR.get(player, color));
+		prelores.add(EGlowMessageConfig.Message.GUI_COLOR_PERMISSION.get(player) + hasPermission(eGlowPlayer, Objects.requireNonNull(eglowColor, "Unable to retrieve permission from effect").getPermissionNode()));
+		prelores.add(EGlowMessageConfig.Message.GUI_RIGHT_CLICK.get(player) + EGlowMessageConfig.Message.COLOR.get(player, "effect-blink") + " " + EGlowMessageConfig.Message.COLOR.get(player, color));
+		prelores.add(EGlowMessageConfig.Message.GUI_BLINK_PERMISSION.get(player) + hasPermission(eGlowPlayer, Objects.requireNonNull(eglowEffect, "Unable to retrieve permission from effect").getPermissionNode()));
 
 		String[] lores = new String[prelores.size()];
 		return prelores.toArray(lores);
@@ -221,10 +224,11 @@ public class MenuItemManager extends MenuManager {
 	 */
 	private String[] createInfoLore(EGlowPlayer eGlowPlayer) {
 		List<String> prelores = new ArrayList<>();
+		Player player = eGlowPlayer.getPlayer();
 
-		prelores.add(EGlowMessageConfig.Message.GUI_LAST_GLOW.get() + ChatUtil.getEffectChatName(eGlowPlayer));
-		prelores.add(EGlowMessageConfig.Message.GUI_GLOW_ON_JOIN.get() + ((eGlowPlayer.isGlowOnJoin()) ? EGlowMessageConfig.Message.GUI_YES.get() : EGlowMessageConfig.Message.GUI_NO.get()));
-		prelores.add(EGlowMessageConfig.Message.GUI_CLICK_TO_TOGGLE.get());
+		prelores.add(EGlowMessageConfig.Message.GUI_LAST_GLOW.get(player) + ChatUtil.getEffectChatName(eGlowPlayer));
+		prelores.add(EGlowMessageConfig.Message.GUI_GLOW_ON_JOIN.get(player) + ((eGlowPlayer.isGlowOnJoin()) ? EGlowMessageConfig.Message.GUI_YES.get(player) : EGlowMessageConfig.Message.GUI_NO.get(player)));
+		prelores.add(EGlowMessageConfig.Message.GUI_CLICK_TO_TOGGLE.get(player));
 
 		String[] lores = new String[prelores.size()];
 		return prelores.toArray(lores);
@@ -238,15 +242,16 @@ public class MenuItemManager extends MenuManager {
 	 */
 	public String[] createSpeedLore(EGlowPlayer eGlowPlayer) {
 		List<String> prelores = new ArrayList<>();
+		Player player = eGlowPlayer.getPlayer();
 
 		if (eGlowPlayer.getGlowEffect() != null) {
 			String effect = eGlowPlayer.getGlowEffect().getName();
 
 			if (effect.contains("slow"))
-				prelores.add(EGlowMessageConfig.Message.GUI_SPEED.get() + EGlowMessageConfig.Message.COLOR.get("slow"));
+				prelores.add(EGlowMessageConfig.Message.GUI_SPEED.get(player) + EGlowMessageConfig.Message.COLOR.get(player, "slow"));
 
 			if (effect.contains("fast"))
-				prelores.add(EGlowMessageConfig.Message.GUI_SPEED.get() + EGlowMessageConfig.Message.COLOR.get("fast"));
+				prelores.add(EGlowMessageConfig.Message.GUI_SPEED.get(player) + EGlowMessageConfig.Message.COLOR.get(player, "fast"));
 		}
 
 		String[] lores = new String[prelores.size()];
@@ -272,7 +277,7 @@ public class MenuItemManager extends MenuManager {
 	 */
 	public String hasPermission(EGlowPlayer eGlowPlayer, String permission) {
 		Player player = eGlowPlayer.getPlayer();
-		return (player.hasPermission(permission) || player.hasPermission("eglow.effect.*") || player.isOp()) ? EGlowMessageConfig.Message.GUI_YES.get() : EGlowMessageConfig.Message.GUI_NO.get();
+		return (player.hasPermission(permission) || player.hasPermission("eglow.effect.*") || player.isOp()) ? EGlowMessageConfig.Message.GUI_YES.get(player) : EGlowMessageConfig.Message.GUI_NO.get(player);
 	}
 
 	private ItemStack createLegacyItemStack(Material material, short numb) {

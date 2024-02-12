@@ -7,6 +7,7 @@ import me.MrGraycat.eglow.data.EGlowPlayer;
 import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
 import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Set;
 
@@ -33,6 +34,8 @@ public class UnsetCommand extends SubCommand {
 
 	@Override
 	public void perform(CommandSender sender, EGlowPlayer eGlowPlayer, String[] args) {
+		Player pSender = (sender instanceof Player player) ? player : null;
+
 		Set<EGlowPlayer> eGlowTargets = getTarget(sender, args);
 
 		if (eGlowTargets.isEmpty()) {
@@ -48,7 +51,7 @@ public class UnsetCommand extends SubCommand {
 				eTarget.disableGlow(false);
 
 				if (eTarget.getEntityType().equals(EnumUtil.EntityType.PLAYER) && MainConfig.SETTINGS_NOTIFICATIONS_TARGET_COMMAND.getBoolean())
-					ChatUtil.sendMsg(eTarget.getPlayer(), EGlowMessageConfig.Message.TARGET_NOTIFICATION_PREFIX.get() + EGlowMessageConfig.Message.DISABLE_GLOW.get(), true);
+					ChatUtil.sendMsg(eTarget.getPlayer(), EGlowMessageConfig.Message.TARGET_NOTIFICATION_PREFIX.get(pSender) + EGlowMessageConfig.Message.DISABLE_GLOW.get(pSender), true);
 			}
 
 			if (!args[args.length - 1].equalsIgnoreCase("-s")) {

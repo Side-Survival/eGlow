@@ -13,6 +13,7 @@ import me.MrGraycat.eglow.config.EGlowCustomEffectsConfig;
 import me.MrGraycat.eglow.config.EGlowMainConfig;
 import me.MrGraycat.eglow.config.EGlowMainConfig.MainConfig;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class ReloadCommand extends SubCommand {
 
@@ -38,6 +39,8 @@ public class ReloadCommand extends SubCommand {
 
 	@Override
 	public void perform(CommandSender sender, EGlowPlayer eGlowPlayer, String[] args) {
+		Player pSender = (sender instanceof Player player) ? player : null;
+
 		if (EGlowMainConfig.reloadConfig() && EGlowMessageConfig.reloadConfig() && EGlowCustomEffectsConfig.reloadConfig()) {
 			EGlowPlayerdataManager.setMysql_Failed(false);
 			NMSHook.registerCommandAlias();
@@ -72,9 +75,9 @@ public class ReloadCommand extends SubCommand {
 				}
 			}
 
-			ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.RELOAD_SUCCESS.get(), true);
+			ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.RELOAD_SUCCESS.get(pSender), true);
 		} else {
-			ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.RELOAD_FAIL.get(), true);
+			ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.RELOAD_FAIL.get(pSender), true);
 		}
 	}
 }

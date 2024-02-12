@@ -9,6 +9,7 @@ import me.MrGraycat.eglow.data.EGlowEffect;
 import me.MrGraycat.eglow.data.EGlowPlayer;
 import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Set;
 
@@ -39,6 +40,8 @@ public class SetCommand extends SubCommand {
 
 	@Override
 	public void perform(CommandSender sender, EGlowPlayer eGlowPlayer, String[] args) {
+		Player pSender = (sender instanceof Player player) ? player : null;
+
 		Set<EGlowPlayer> eGlowTargets = getTarget(sender, args);
 		boolean isSilent = (args[args.length - 1].equalsIgnoreCase("-s"));
 
@@ -102,7 +105,7 @@ public class SetCommand extends SubCommand {
 					eGlowTarget.disableGlow(false);
 
 					if (eGlowTarget.getEntityType().equals(EnumUtil.EntityType.PLAYER) && MainConfig.SETTINGS_NOTIFICATIONS_TARGET_COMMAND.getBoolean())
-						ChatUtil.sendMsg(eGlowTarget.getPlayer(), Message.TARGET_NOTIFICATION_PREFIX.get() + Message.DISABLE_GLOW.get(), true);
+						ChatUtil.sendMsg(eGlowTarget.getPlayer(), Message.TARGET_NOTIFICATION_PREFIX.get(pSender) + Message.DISABLE_GLOW.get(pSender), true);
 				}
 
 				ChatUtil.sendMsg(sender, Message.OTHER_CONFIRM_OFF.get(eGlowTarget), true);
@@ -111,7 +114,7 @@ public class SetCommand extends SubCommand {
 					eGlowTarget.activateGlow(eGlowEffect);
 
 					if (eGlowTarget.getEntityType().equals(EnumUtil.EntityType.PLAYER) && MainConfig.SETTINGS_NOTIFICATIONS_TARGET_COMMAND.getBoolean())
-						ChatUtil.sendMsg(eGlowTarget.getPlayer(), Message.TARGET_NOTIFICATION_PREFIX.get() + Message.NEW_GLOW.get(eGlowEffect.getDisplayName()), true);
+						ChatUtil.sendMsg(eGlowTarget.getPlayer(), Message.TARGET_NOTIFICATION_PREFIX.get(pSender) + Message.NEW_GLOW.get(pSender, eGlowEffect.getDisplayName()), true);
 				}
 
 				if (!args[args.length - 1].equalsIgnoreCase("-s")) {

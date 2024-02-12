@@ -44,9 +44,10 @@ public abstract class SubCommand {
 	 */
 	private void sendSyntax(CommandSender sender, String[] syntaxMessages) {
 		ChatUtil.sendPlainMsg(sender, "", true);
+		Player pSender = (sender instanceof Player player) ? player : null;
 
 		for (String message : syntaxMessages) {
-			ChatUtil.sendPlainMsg(sender, Message.INCORRECT_USAGE.get(message), false);
+			ChatUtil.sendPlainMsg(sender, Message.INCORRECT_USAGE.get(pSender), false);
 		}
 	}
 
@@ -59,11 +60,12 @@ public abstract class SubCommand {
 	 */
 	public Set<EGlowPlayer> getTarget(CommandSender sender, String[] args) {
 		Set<EGlowPlayer> results = new HashSet<>();
+		Player pSender = (sender instanceof Player player) ? player : null;
 
 		if (args.length >= 2) {
 			if (args[1].toLowerCase().contains("npc:")) {
 				if (getInstance().getCitizensAddon() == null) {
-					ChatUtil.sendMsg(sender, Message.CITIZENS_NOT_INSTALLED.get(), true);
+					ChatUtil.sendMsg(sender, Message.CITIZENS_NOT_INSTALLED.get(pSender), true);
 					return results;
 				}
 
@@ -77,17 +79,17 @@ public abstract class SubCommand {
 						npc = CitizensAPI.getNPCRegistry().getById(Integer.parseInt(argument));
 					}
 				} catch (NullPointerException ignored) {
-					ChatUtil.sendMsg(sender, Message.CITIZENS_NPC_NOT_FOUND.get(), true);
+					ChatUtil.sendMsg(sender, Message.CITIZENS_NPC_NOT_FOUND.get(pSender), true);
 				}
 
 				if (npc == null || !npc.isSpawned()) {
-					ChatUtil.sendMsg(sender, Message.CITIZENS_NPC_NOT_FOUND.get(), true);
+					ChatUtil.sendMsg(sender, Message.CITIZENS_NPC_NOT_FOUND.get(pSender), true);
 					return results;
 				}
 
 				try {
 					if (!getInstance().getCitizensAddon().traitCheck(npc)) {
-						ChatUtil.sendMsg(sender, Message.PREFIX.get() + "&cYour Citizens plugin is outdated&f!", true);
+						ChatUtil.sendMsg(sender, Message.PREFIX.get(pSender) + "&cYour Citizens plugin is outdated&f!", true);
 						return results;
 					}
 
@@ -106,14 +108,14 @@ public abstract class SubCommand {
 				Player player = Bukkit.getPlayer(args[1].toLowerCase());
 
 				if (player == null) {
-					ChatUtil.sendMsg(sender, Message.PLAYER_NOT_FOUND.get(), true);
+					ChatUtil.sendMsg(sender, Message.PLAYER_NOT_FOUND.get(pSender), true);
 					return results;
 				}
 
 				EGlowPlayer eGlowTarget = DataManager.getEGlowPlayer(player);
 
 				if (eGlowTarget == null) {
-					ChatUtil.sendMsg(sender, Message.PLAYER_NOT_FOUND.get(), true);
+					ChatUtil.sendMsg(sender, Message.PLAYER_NOT_FOUND.get(pSender), true);
 					return results;
 				}
 

@@ -25,7 +25,7 @@ public class EGlowMainMenu extends Menu {
 
 	@Override
 	public String getMenuName() {
-		return ChatUtil.translateColors(((MainConfig.SETTINGS_GUI_ADD_PREFIX.getBoolean()) ? Message.GUI_TITLE.get() : Message.PREFIX.get() + Message.GUI_TITLE.get()));
+		return ChatUtil.translateColors(((MainConfig.SETTINGS_GUI_ADD_PREFIX.getBoolean()) ? Message.GUI_TITLE.get(getiPlayer()) : Message.PREFIX.get(getiPlayer()) + Message.GUI_TITLE.get(getiPlayer())));
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class EGlowMainMenu extends Menu {
 		int clickedSlot = event.getSlot();
 
 		if ((System.currentTimeMillis() - getMenuMetadata().getLastClicked()) < MainConfig.SETTINGS_GUIS_INTERACTION_DELAY.getLong()) {
-			ChatUtil.sendMsgFromGUI(player, Message.GUI_COOLDOWN.get());
+			ChatUtil.sendMsgFromGUI(player, Message.GUI_COOLDOWN.get(player));
 			return;
 		}
 
@@ -109,22 +109,22 @@ public class EGlowMainMenu extends Menu {
 				if (eGlowPlayer.getPlayer().hasPermission("eglow.command.toggle")) {
 					if (eGlowPlayer.isGlowing()) {
 						eGlowPlayer.disableGlow(false);
-						ChatUtil.sendMsgFromGUI(player, Message.DISABLE_GLOW.get());
+						ChatUtil.sendMsgFromGUI(player, Message.DISABLE_GLOW.get(player));
 					} else {
 						if (eGlowPlayer.getGlowEffect() == null || eGlowPlayer.getGlowEffect().getName().equals("none")) {
-							ChatUtil.sendMsgFromGUI(player, Message.NO_LAST_GLOW.get());
+							ChatUtil.sendMsgFromGUI(player, Message.NO_LAST_GLOW.get(player));
 							return;
 						}
 
 						switch (eGlowPlayer.getGlowDisableReason()) {
 							case BLOCKEDWORLD:
-								ChatUtil.sendMsgFromGUI(player, Message.WORLD_BLOCKED.get());
+								ChatUtil.sendMsgFromGUI(player, Message.WORLD_BLOCKED.get(player));
 								return;
 							case INVISIBLE:
-								ChatUtil.sendMsgFromGUI(player, Message.INVISIBILITY_BLOCKED.get());
+								ChatUtil.sendMsgFromGUI(player, Message.INVISIBILITY_BLOCKED.get(player));
 								return;
 							case ANIMATION:
-								ChatUtil.sendMsgFromGUI(player, Message.ANIMATION_BLOCKED.get());
+								ChatUtil.sendMsgFromGUI(player, Message.ANIMATION_BLOCKED.get(player));
 								return;
 						}
 
@@ -133,18 +133,18 @@ public class EGlowMainMenu extends Menu {
 						if (eGlowPlayer.hasPermission(currentEGlowEffect.getPermissionNode()) || (DataManager.isCustomEffect(currentEGlowEffect.getName()) && eGlowPlayer.hasPermission("eglow.egloweffect.*")) || eGlowPlayer.isForcedGlow(currentEGlowEffect)) {
 							eGlowPlayer.activateGlow();
 						} else {
-							ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get());
+							ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get(player));
 							return;
 						}
-						ChatUtil.sendMsgFromGUI(player, Message.NEW_GLOW.get(eGlowPlayer.getLastGlowName()));
+						ChatUtil.sendMsgFromGUI(player, Message.NEW_GLOW.get(player, eGlowPlayer.getLastGlowName()));
 					}
 				} else {
-					ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get());
+					ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get(player));
 				}
 				break;
 			case (31):
 				if (!eGlowPlayer.hasPermission("eglow.command.visibility")) {
-					ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get());
+					ChatUtil.sendMsgFromGUI(player, Message.NO_PERMISSION.get(player));
 					return;
 				}
 
@@ -164,7 +164,7 @@ public class EGlowMainMenu extends Menu {
 				}
 
 				PacketUtil.forceUpdateGlow(eGlowPlayer);
-				ChatUtil.sendMsgFromGUI(player, Message.VISIBILITY_CHANGE.get(eGlowPlayer.getGlowVisibility().name()));
+				ChatUtil.sendMsgFromGUI(player, Message.VISIBILITY_CHANGE.get(player, eGlowPlayer.getGlowVisibility().name()));
 				break;
 			case (32):
 				if (hasEffect(eGlowPlayer))
@@ -187,6 +187,7 @@ public class EGlowMainMenu extends Menu {
 			@Override
 			public void run() {
 				EGlowPlayer eGlowPlayer = DataManager.getEGlowPlayer(getMenuMetadata().getOwner());
+				Player player = eGlowPlayer.getPlayer();
 
 				UpdateMainNavigationBar(eGlowPlayer);
 
@@ -208,7 +209,7 @@ public class EGlowMainMenu extends Menu {
 				getInventory().setItem(15, createLeatherColor(eGlowPlayer, "dark-gray", 85, 85, 85));
 				getInventory().setItem(16, createLeatherColor(eGlowPlayer, "black", 0, 0, 0));
 
-				getInventory().setItem(22, createItem(Material.NETHER_STAR, Message.GUI_COLOR.get("effect-rainbow"), 0, Message.GUI_LEFT_CLICK.get() + Message.COLOR.get("effect-rainbow"), Message.GUI_EFFECT_PERMISSION.get() + ((eGlowPlayer.getPlayer().hasPermission(Objects.requireNonNull(DataManager.getEGlowEffect("rainbowslow"), "Unable to retrieve effect from given name").getPermissionNode()) ? Message.GUI_YES.get() : Message.GUI_NO.get()))));
+				getInventory().setItem(22, createItem(Material.NETHER_STAR, Message.GUI_COLOR.get(player, "effect-rainbow"), 0, Message.GUI_LEFT_CLICK.get(player) + Message.COLOR.get(player, "effect-rainbow"), Message.GUI_EFFECT_PERMISSION.get(player) + ((eGlowPlayer.getPlayer().hasPermission(Objects.requireNonNull(DataManager.getEGlowEffect("rainbowslow"), "Unable to retrieve effect from given name").getPermissionNode()) ? Message.GUI_YES.get(player) : Message.GUI_NO.get(player)))));
 
 				new BukkitRunnable() {
 					@Override

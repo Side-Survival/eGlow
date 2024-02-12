@@ -5,6 +5,7 @@ import me.MrGraycat.eglow.command.SubCommand;
 import me.MrGraycat.eglow.config.EGlowMessageConfig;
 import me.MrGraycat.eglow.data.EGlowPlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class ToggleGlowOnJoinCommand extends SubCommand {
 
@@ -30,7 +31,9 @@ public class ToggleGlowOnJoinCommand extends SubCommand {
 
 	@Override
 	public void perform(CommandSender sender, EGlowPlayer eGlowPlayer, String[] args) {
+		Player pSender = (sender instanceof Player player) ? player : null;
+
 		eGlowPlayer.setGlowOnJoin(!eGlowPlayer.isGlowOnJoin());
-		ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.GLOWONJOIN_TOGGLE.get(String.valueOf(eGlowPlayer.isGlowOnJoin())), true);
+		ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.GLOWONJOIN_TOGGLE.get(pSender, String.valueOf(eGlowPlayer.isGlowOnJoin())), true);
 	}
 }

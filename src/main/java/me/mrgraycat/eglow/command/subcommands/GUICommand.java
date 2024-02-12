@@ -7,6 +7,7 @@ import me.MrGraycat.eglow.config.EGlowMessageConfig;
 import me.MrGraycat.eglow.data.EGlowPlayer;
 import me.MrGraycat.eglow.gui.menus.EGlowMainMenu;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class GUICommand extends SubCommand {
 
@@ -32,20 +33,22 @@ public class GUICommand extends SubCommand {
 
 	@Override
 	public void perform(CommandSender sender, EGlowPlayer eGlowPlayer, String[] args) {
+		Player pSender = (sender instanceof Player player) ? player : null;
+
 		switch (eGlowPlayer.getGlowDisableReason()) {
 			case BLOCKEDWORLD:
-				ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.WORLD_BLOCKED.get(), true);
+				ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.WORLD_BLOCKED.get(pSender), true);
 				return;
 			case INVISIBLE:
-				ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.INVISIBILITY_BLOCKED.get(), true);
+				ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.INVISIBILITY_BLOCKED.get(pSender), true);
 				return;
 			case ANIMATION:
-				ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.ANIMATION_BLOCKED.get(), true);
+				ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.ANIMATION_BLOCKED.get(pSender), true);
 				return;
 		}
 
 		if (eGlowPlayer.getGlowVisibility().equals(EnumUtil.GlowVisibility.UNSUPPORTEDCLIENT))
-			ChatUtil.sendPlainMsg(sender, EGlowMessageConfig.Message.UNSUPPORTED_GLOW.get(), true);
+			ChatUtil.sendPlainMsg(sender, EGlowMessageConfig.Message.UNSUPPORTED_GLOW.get(pSender), true);
 		
 		new EGlowMainMenu(eGlowPlayer).openInventory();
 	}

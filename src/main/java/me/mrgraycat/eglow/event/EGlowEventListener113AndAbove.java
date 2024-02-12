@@ -47,7 +47,7 @@ public class EGlowEventListener113AndAbove implements Listener {
 							eGlowPlayer.setGlowDisableReason(EnumUtil.GlowDisableReason.INVISIBLE);
 
 							if (MainConfig.SETTINGS_NOTIFICATIONS_INVISIBILITY.getBoolean())
-								ChatUtil.sendMsg(eGlowPlayer.getPlayer(), EGlowMessageConfig.Message.INVISIBILITY_BLOCKED.get(), true);
+								ChatUtil.sendMsg(eGlowPlayer.getPlayer(), EGlowMessageConfig.Message.INVISIBILITY_BLOCKED.get(eGlowPlayer.getPlayer()), true);
 							return;
 						}
 					}
@@ -58,7 +58,7 @@ public class EGlowEventListener113AndAbove implements Listener {
 								eGlowPlayer.activateGlow();
 
 								if (MainConfig.SETTINGS_NOTIFICATIONS_INVISIBILITY.getBoolean())
-									ChatUtil.sendMsg(eGlowPlayer.getPlayer(), EGlowMessageConfig.Message.INVISIBILITY_ALLOWED.get(), true);
+									ChatUtil.sendMsg(eGlowPlayer.getPlayer(), EGlowMessageConfig.Message.INVISIBILITY_ALLOWED.get(eGlowPlayer.getPlayer()), true);
 							}
 						}
 					}

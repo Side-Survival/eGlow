@@ -29,7 +29,7 @@ public class EGlowEffectMenu extends PaginatedMenu {
 
 	@Override
 	public String getMenuName() {
-		return ChatUtil.translateColors(((EGlowMainConfig.MainConfig.SETTINGS_GUI_ADD_PREFIX.getBoolean()) ? EGlowMessageConfig.Message.GUI_TITLE.get() : EGlowMessageConfig.Message.PREFIX.get() + EGlowMessageConfig.Message.GUI_TITLE.get()));
+		return ChatUtil.translateColors(((EGlowMainConfig.MainConfig.SETTINGS_GUI_ADD_PREFIX.getBoolean()) ? EGlowMessageConfig.Message.GUI_TITLE.get(getiPlayer()) : EGlowMessageConfig.Message.PREFIX.get(getiPlayer()) + EGlowMessageConfig.Message.GUI_TITLE.get(getiPlayer())));
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class EGlowEffectMenu extends PaginatedMenu {
 		int clickedSlot = event.getSlot();
 
 		if ((System.currentTimeMillis() - getMenuMetadata().getLastClicked()) < EGlowMainConfig.MainConfig.SETTINGS_GUIS_INTERACTION_DELAY.getLong()) {
-			ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.GUI_COOLDOWN.get());
+			ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.GUI_COOLDOWN.get(player));
 			return;
 		}
 
@@ -62,22 +62,22 @@ public class EGlowEffectMenu extends PaginatedMenu {
 				if (eGlowPlayer.getPlayer().hasPermission("eglow.command.toggle")) {
 					if (eGlowPlayer.isGlowing()) {
 						eGlowPlayer.disableGlow(false);
-						ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.DISABLE_GLOW.get());
+						ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.DISABLE_GLOW.get(player));
 					} else {
 						if (eGlowPlayer.getGlowEffect() == null || eGlowPlayer.getGlowEffect().getName().equals("none")) {
-							ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_LAST_GLOW.get());
+							ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_LAST_GLOW.get(player));
 							return;
 						}
 
 						switch (eGlowPlayer.getGlowDisableReason()) {
 							case BLOCKEDWORLD:
-								ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.WORLD_BLOCKED.get());
+								ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.WORLD_BLOCKED.get(player));
 								return;
 							case INVISIBLE:
-								ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.INVISIBILITY_BLOCKED.get());
+								ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.INVISIBILITY_BLOCKED.get(player));
 								return;
 							case ANIMATION:
-								ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.ANIMATION_BLOCKED.get());
+								ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.ANIMATION_BLOCKED.get(player));
 								return;
 						}
 
@@ -86,13 +86,13 @@ public class EGlowEffectMenu extends PaginatedMenu {
 						if (eGlowPlayer.hasPermission(currentEGlowEffect.getPermissionNode()) || (DataManager.isCustomEffect(currentEGlowEffect.getName()) && eGlowPlayer.hasPermission("eglow.egloweffect.*")) || eGlowPlayer.isForcedGlow(currentEGlowEffect)) {
 							eGlowPlayer.activateGlow();
 						} else {
-							ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_PERMISSION.get());
+							ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_PERMISSION.get(player));
 							return;
 						}
-						ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NEW_GLOW.get(eGlowPlayer.getLastGlowName()));
+						ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NEW_GLOW.get(player, eGlowPlayer.getLastGlowName()));
 					}
 				} else {
-					ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_PERMISSION.get());
+					ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_PERMISSION.get(player));
 				}
 				break;
 			case (33):

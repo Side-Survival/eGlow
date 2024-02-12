@@ -8,6 +8,7 @@ import me.MrGraycat.eglow.data.EGlowEffect;
 import me.MrGraycat.eglow.data.EGlowPlayer;
 import me.MrGraycat.eglow.Util.text.ChatUtil;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class EffectCommand extends SubCommand {
 	@Override
@@ -34,15 +35,17 @@ public class EffectCommand extends SubCommand {
 
 	@Override
 	public void perform(CommandSender sender, EGlowPlayer eGlowPlayer, String[] args) {
+		Player pSender = (sender instanceof Player player) ? player : null;
+
 		switch (eGlowPlayer.getGlowDisableReason()) {
 			case BLOCKEDWORLD:
-				ChatUtil.sendMsg(sender, Message.WORLD_BLOCKED.get(), true);
+				ChatUtil.sendMsg(sender, Message.WORLD_BLOCKED.get(pSender), true);
 				return;
 			case INVISIBLE:
-				ChatUtil.sendMsg(sender, Message.INVISIBILITY_BLOCKED.get(), true);
+				ChatUtil.sendMsg(sender, Message.INVISIBILITY_BLOCKED.get(pSender), true);
 				return;
 			case ANIMATION:
-				ChatUtil.sendMsg(sender, Message.ANIMATION_BLOCKED.get(), true);
+				ChatUtil.sendMsg(sender, Message.ANIMATION_BLOCKED.get(pSender), true);
 				return;
 		}
 
@@ -82,21 +85,21 @@ public class EffectCommand extends SubCommand {
 		if (eGlowPlayer.hasPermission(eGlowEffect.getPermissionNode()) || (DataManager.isCustomEffect(eGlowEffect.getName()) && eGlowPlayer.hasPermission("eglow.egloweffect.*"))) {
 			if (eGlowEffect.getName().equals("none")) {
 				eGlowPlayer.disableGlow(false);
-				ChatUtil.sendMsg(sender, Message.DISABLE_GLOW.get(), true);
+				ChatUtil.sendMsg(sender, Message.DISABLE_GLOW.get(pSender), true);
 			} else {
 				if (eGlowPlayer.isSameGlow(eGlowEffect)) {
-					ChatUtil.sendMsg(sender, Message.SAME_GLOW.get(), true);
+					ChatUtil.sendMsg(sender, Message.SAME_GLOW.get(pSender), true);
 					return;
 				}
 
 				eGlowPlayer.activateGlow(eGlowEffect);
-				ChatUtil.sendMsg(sender, Message.NEW_GLOW.get(eGlowEffect.getDisplayName()), true);
+				ChatUtil.sendMsg(sender, Message.NEW_GLOW.get(pSender, eGlowEffect.getDisplayName()), true);
 
 				if (eGlowPlayer.getGlowVisibility().equals(EnumUtil.GlowVisibility.UNSUPPORTEDCLIENT))
-					ChatUtil.sendMsg(sender, Message.UNSUPPORTED_GLOW.get(), true);
+					ChatUtil.sendMsg(sender, Message.UNSUPPORTED_GLOW.get(pSender), true);
 			}
 		} else {
-			ChatUtil.sendMsg(sender, Message.NO_PERMISSION.get(), true);
+			ChatUtil.sendMsg(sender, Message.NO_PERMISSION.get(pSender), true);
 		}
 	}
 

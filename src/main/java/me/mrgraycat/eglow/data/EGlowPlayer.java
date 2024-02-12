@@ -457,7 +457,7 @@ public class EGlowPlayer {
 	}
 
 	public String getLastGlowName() {
-		return (getGlowEffect() != null) ? getGlowEffect().getDisplayName() : Message.COLOR.get("none");
+		return (getGlowEffect() != null) ? getGlowEffect().getDisplayName() : Message.COLOR.get(getPlayer(), "none");
 	}
 
 	public String getLastGlow() {

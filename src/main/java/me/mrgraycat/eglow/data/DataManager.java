@@ -66,6 +66,7 @@ public class DataManager implements PluginMessageListener {
 	//Effects
 	public static void addEGlowEffects() {
 		EGlowEffect effect;
+		Player nullPlayer = null;
 
 		for (ChatColor color : ChatColor.values()) {
 			if (!color.equals(ChatColor.ITALIC) && !color.equals(ChatColor.MAGIC) && !color.equals(ChatColor.STRIKETHROUGH) && !color.equals(ChatColor.UNDERLINE) && !color.equals(ChatColor.BOLD)) {
@@ -73,22 +74,22 @@ public class DataManager implements PluginMessageListener {
 				String name = configName.replace("-", "");
 
 				if (!dataEffects.containsKey(name)) {
-					addEGlowEffect(name, (MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(configName) : Message.COLOR.get(configName), "eglow.color." + name, color);
+					addEGlowEffect(name, (MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(nullPlayer, configName) : Message.COLOR.get(nullPlayer, configName), "eglow.color." + name, color);
 
 					if (!name.equals("none")) {
-						addEGlowEffect("blink" + name + "slow", (MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(configName) : Message.COLOR.get(configName) + " §f(" + Message.COLOR.get("effect-blink") + " " + Message.COLOR.get("slow") + "§f)", "eglow.blink." + name, MainConfig.DELAY_SLOW.getInt(), ChatColor.RESET, color);
-						addEGlowEffect("blink" + name + "fast", (MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(configName) : Message.COLOR.get(configName) + " §f(" + Message.COLOR.get("effect-blink") + " " + Message.COLOR.get("fast") + "§f)", "eglow.blink." + name, MainConfig.DELAY_FAST.getInt(), ChatColor.RESET, color);
+						addEGlowEffect("blink" + name + "slow", (MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(nullPlayer, configName) : Message.COLOR.get(nullPlayer, configName) + " §f(" + Message.COLOR.get(nullPlayer, "effect-blink") + " " + Message.COLOR.get(nullPlayer, "slow") + "§f)", "eglow.blink." + name, MainConfig.DELAY_SLOW.getInt(), ChatColor.RESET, color);
+						addEGlowEffect("blink" + name + "fast", (MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(nullPlayer, configName) : Message.COLOR.get(nullPlayer, configName) + " §f(" + Message.COLOR.get(nullPlayer, "effect-blink") + " " + Message.COLOR.get(nullPlayer, "fast") + "§f)", "eglow.blink." + name, MainConfig.DELAY_FAST.getInt(), ChatColor.RESET, color);
 					}
 				} else {
 					effect = getEGlowEffect(name);
 
 					if (effect != null)
-						effect.setDisplayName((MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(configName) : Message.COLOR.get(configName));
+						effect.setDisplayName((MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(nullPlayer, configName) : Message.COLOR.get(nullPlayer, configName));
 
 					effect = getEGlowEffect("blink" + name + "slow");
 
 					if (effect != null) {
-						effect.setDisplayName((MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(configName) : Message.COLOR.get(configName) + " §f(" + Message.COLOR.get("effect-blink") + ((Message.COLOR.get("effect-blink").isEmpty()) ? "" : " ") + Message.COLOR.get("slow") + "§f)");
+						effect.setDisplayName((MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(nullPlayer, configName) : Message.COLOR.get(nullPlayer, configName) + " §f(" + Message.COLOR.get(nullPlayer, "effect-blink") + ((Message.COLOR.get(nullPlayer, "effect-blink").isEmpty()) ? "" : " ") + Message.COLOR.get(nullPlayer, "slow") + "§f)");
 						effect.setEffectDelay(MainConfig.DELAY_SLOW.getInt());
 						effect.reloadEffect();
 					}
@@ -96,7 +97,7 @@ public class DataManager implements PluginMessageListener {
 					effect = getEGlowEffect("blink" + name + "fast");
 
 					if (effect != null) {
-						effect.setDisplayName((MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(configName) : Message.COLOR.get(configName) + " §f(" + Message.COLOR.get("effect-blink") + ((Message.COLOR.get("effect-blink").isEmpty()) ? "" : " ") + Message.COLOR.get("fast") + "§f)");
+						effect.setDisplayName((MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(nullPlayer, configName) : Message.COLOR.get(nullPlayer, configName) + " §f(" + Message.COLOR.get(nullPlayer, "effect-blink") + ((Message.COLOR.get(nullPlayer, "effect-blink").isEmpty()) ? "" : " ") + Message.COLOR.get(nullPlayer, "fast") + "§f)");
 						effect.setEffectDelay(MainConfig.DELAY_FAST.getInt());
 						effect.reloadEffect();
 					}
@@ -105,13 +106,13 @@ public class DataManager implements PluginMessageListener {
 		}
 
 		if (!dataEffects.containsKey("rainbowslow")) {
-			addEGlowEffect("rainbowslow", (MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get("effect-rainbow") : Message.COLOR.get("effect-rainbow") + " §f(" + Message.COLOR.get("slow") + "§f)", "eglow.effect.rainbow", MainConfig.DELAY_SLOW.getInt(), ChatColor.RED, ChatColor.GOLD, ChatColor.YELLOW, ChatColor.GREEN, ChatColor.AQUA, ChatColor.BLUE, ChatColor.LIGHT_PURPLE);
-			addEGlowEffect("rainbowfast", (MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get("effect-rainbow") : Message.COLOR.get("effect-rainbow") + " §f(" + Message.COLOR.get("fast") + "§f)", "eglow.effect.rainbow", MainConfig.DELAY_FAST.getInt(), ChatColor.RED, ChatColor.GOLD, ChatColor.YELLOW, ChatColor.GREEN, ChatColor.AQUA, ChatColor.BLUE, ChatColor.LIGHT_PURPLE);
+			addEGlowEffect("rainbowslow", (MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(nullPlayer, "effect-rainbow") : Message.COLOR.get(nullPlayer, "effect-rainbow") + " §f(" + Message.COLOR.get(nullPlayer, "slow") + "§f)", "eglow.effect.rainbow", MainConfig.DELAY_SLOW.getInt(), ChatColor.RED, ChatColor.GOLD, ChatColor.YELLOW, ChatColor.GREEN, ChatColor.AQUA, ChatColor.BLUE, ChatColor.LIGHT_PURPLE);
+			addEGlowEffect("rainbowfast", (MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(nullPlayer, "effect-rainbow") : Message.COLOR.get(nullPlayer, "effect-rainbow") + " §f(" + Message.COLOR.get(nullPlayer, "fast") + "§f)", "eglow.effect.rainbow", MainConfig.DELAY_FAST.getInt(), ChatColor.RED, ChatColor.GOLD, ChatColor.YELLOW, ChatColor.GREEN, ChatColor.AQUA, ChatColor.BLUE, ChatColor.LIGHT_PURPLE);
 		} else {
 			effect = getEGlowEffect("rainbowslow");
 
 			if (effect != null) {
-				effect.setDisplayName((MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get("effect-rainbow") : Message.COLOR.get("effect-rainbow") + " §f(" + Message.COLOR.get("slow") + "§f)");
+				effect.setDisplayName((MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean()) ? Message.GUI_COLOR.get(nullPlayer, "effect-rainbow") : Message.COLOR.get(nullPlayer, "effect-rainbow") + " §f(" + Message.COLOR.get(nullPlayer, "slow") + "§f)");
 				effect.setEffectDelay(MainConfig.DELAY_SLOW.getInt());
 				effect.reloadEffect();
 			}
@@ -119,7 +120,7 @@ public class DataManager implements PluginMessageListener {
 			effect = getEGlowEffect("rainbowfast");
 
 			if (effect != null) {
-				effect.setDisplayName(((MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean())) ? Message.GUI_COLOR.get("effect-rainbow") : Message.COLOR.get("effect-rainbow") + " §f(" + Message.COLOR.get("fast") + "§f)");
+				effect.setDisplayName(((MainConfig.SETTINGS_GUI_COLOR_FOR_MESSAGES.getBoolean())) ? Message.GUI_COLOR.get(nullPlayer, "effect-rainbow") : Message.COLOR.get(nullPlayer, "effect-rainbow") + " §f(" + Message.COLOR.get(nullPlayer, "fast") + "§f)");
 				effect.setEffectDelay(MainConfig.DELAY_FAST.getInt());
 				effect.reloadEffect();
 			}

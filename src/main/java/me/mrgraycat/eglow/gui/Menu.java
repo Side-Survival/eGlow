@@ -22,9 +22,11 @@ import java.util.Objects;
 public abstract class Menu extends MenuItemManager implements InventoryHolder {
 	protected MenuMetadata menuMetadata;
 	protected Inventory inventory;
+	private final Player iPlayer;
 
 	public Menu(Player player) {
 		this.menuMetadata = getMenuMetadata(player);
+		this.iPlayer = player;
 	}
 
 	public abstract String getMenuName();
@@ -64,32 +66,32 @@ public abstract class Menu extends MenuItemManager implements InventoryHolder {
 					return;
 
 				if (!(player.hasPermission(color.getPermissionNode()) || DataManager.isCustomEffect(color.getName()) && Objects.requireNonNull(player.getPlayer(), "Unable to retrieve player").hasPermission("eglow.effect.*"))) {
-					ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_PERMISSION.get());
+					ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_PERMISSION.get(player));
 					return;
 				}
 
 				if (eGlowPlayer.isSameGlow(color)) {
-					ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.SAME_GLOW.get());
+					ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.SAME_GLOW.get(player));
 					return;
 				}
 
 				eGlowPlayer.activateGlow(color);
-				ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NEW_GLOW.get(color.getDisplayName()));
+				ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NEW_GLOW.get(player, color.getDisplayName()));
 			} else if (DataManager.getEGlowEffect(effectName + "slow") != null) { //for rainbow effect 
 				EGlowEffect effect = DataManager.getEGlowEffect(effectName + "slow");
 
 				if (!player.hasPermission(Objects.requireNonNull(effect, "Unable to retrieve effect from given name").getPermissionNode())) {
-					ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_PERMISSION.get());
+					ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_PERMISSION.get(player));
 					return;
 				}
 
 				if (eGlowPlayer.isSameGlow(effect)) {
-					ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.SAME_GLOW.get());
+					ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.SAME_GLOW.get(player));
 					return;
 				}
 
 				eGlowPlayer.activateGlow(effect);
-				ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NEW_GLOW.get(effect.getDisplayName()));
+				ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NEW_GLOW.get(player, effect.getDisplayName()));
 			}
 
 		} else if (clickType.equals(ClickType.RIGHT)) {
@@ -99,17 +101,17 @@ public abstract class Menu extends MenuItemManager implements InventoryHolder {
 				return;
 
 			if (!player.hasPermission(effect.getPermissionNode())) {
-				ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_PERMISSION.get());
+				ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NO_PERMISSION.get(player));
 				return;
 			}
 
 			if (eGlowPlayer.isSameGlow(effect)) {
-				ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.SAME_GLOW.get());
+				ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.SAME_GLOW.get(player));
 				return;
 			}
 
 			eGlowPlayer.activateGlow(effect);
-			ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NEW_GLOW.get(effect.getDisplayName()));
+			ChatUtil.sendMsgFromGUI(player, EGlowMessageConfig.Message.NEW_GLOW.get(player, effect.getDisplayName()));
 		}
 	}
 
@@ -130,7 +132,7 @@ public abstract class Menu extends MenuItemManager implements InventoryHolder {
 				eGlowEffect = DataManager.getEGlowEffect(effect.replace("fast", "slow"));
 
 			eGlowPlayer.activateGlow(eGlowEffect);
-			ChatUtil.sendMsgFromGUI(getMenuMetadata().getOwner(), EGlowMessageConfig.Message.NEW_GLOW.get(Objects.requireNonNull(eGlowEffect, "Unable to get displayname from effect").getDisplayName()));
+			ChatUtil.sendMsgFromGUI(getMenuMetadata().getOwner(), EGlowMessageConfig.Message.NEW_GLOW.get(eGlowPlayer.getPlayer(), Objects.requireNonNull(eGlowEffect, "Unable to get displayname from effect").getDisplayName()));
 		}
 	}
 
@@ -156,9 +158,13 @@ public abstract class Menu extends MenuItemManager implements InventoryHolder {
 		getInventory().setItem(31, createGlowVisibility(eGlowPlayer));
 
 		if (hasEffect(eGlowPlayer))
-			getInventory().setItem(32, createItem(Material.valueOf(CLOCK), EGlowMessageConfig.Message.GUI_SPEED_ITEM_NAME.get(), 0, createSpeedLore(eGlowPlayer)));
+			getInventory().setItem(32, createItem(Material.valueOf(CLOCK), EGlowMessageConfig.Message.GUI_SPEED_ITEM_NAME.get(eGlowPlayer.getPlayer()), 0, createSpeedLore(eGlowPlayer)));
 
 		if (EGlowMainConfig.MainConfig.SETTINGS_GUI_CUSTOM_EFFECTS.getBoolean())
-			getInventory().setItem(34, setItemGlow(createItem(Material.BOOK, EGlowMessageConfig.Message.GUI_CUSTOM_EFFECTS_ITEM_NAME.get(), 0, EGlowMessageConfig.Message.GUI_CLICK_TO_OPEN.get())));
+			getInventory().setItem(34, setItemGlow(createItem(Material.BOOK, EGlowMessageConfig.Message.GUI_CUSTOM_EFFECTS_ITEM_NAME.get(eGlowPlayer.getPlayer()), 0, EGlowMessageConfig.Message.GUI_CLICK_TO_OPEN.get(eGlowPlayer.getPlayer()))));
+	}
+
+	public Player getiPlayer() {
+		return iPlayer;
 	}
 }

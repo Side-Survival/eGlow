@@ -44,9 +44,11 @@ public abstract class PaginatedMenu extends Menu {
 			getInventory().setItem(35, createItem(Material.valueOf(GLASS_PANE), "&f", 5, ""));
 		}
 
+		Player player = p.getPlayer();
+
 		getInventory().setItem(28, createPlayerSkull(p));
 		getInventory().setItem(29, createGlowingStatus(p));
-		getInventory().setItem(33, createItem((ProtocolVersion.SERVER_VERSION.getMinorVersion() >= 14) ? Material.valueOf("OAK_SIGN") : Material.valueOf("SIGN"), Message.GUI_PREVIOUS_PAGE.get(), 0, Message.GUI_PAGE_LORE.get((page == 1) ? Message.GUI_MAIN_MENU.get() : String.valueOf(page - 1))));
-		getInventory().setItem(34, createItem((ProtocolVersion.SERVER_VERSION.getMinorVersion() >= 14) ? Material.valueOf("OAK_SIGN") : Material.valueOf("SIGN"), Message.GUI_NEXT_PAGE.get(), 0, Message.GUI_PAGE_LORE.get((!hasNextPage()) ? Message.GUI_NOT_AVAILABLE.get() : String.valueOf(page + 1))));
+		getInventory().setItem(33, createItem((ProtocolVersion.SERVER_VERSION.getMinorVersion() >= 14) ? Material.valueOf("OAK_SIGN") : Material.valueOf("SIGN"), Message.GUI_PREVIOUS_PAGE.get(player), 0, Message.GUI_PAGE_LORE.get(player, (page == 1) ? Message.GUI_MAIN_MENU.get(player) : String.valueOf(page - 1))));
+		getInventory().setItem(34, createItem((ProtocolVersion.SERVER_VERSION.getMinorVersion() >= 14) ? Material.valueOf("OAK_SIGN") : Material.valueOf("SIGN"), Message.GUI_NEXT_PAGE.get(player), 0, Message.GUI_PAGE_LORE.get(player, (!hasNextPage()) ? Message.GUI_NOT_AVAILABLE.get(player) : String.valueOf(page + 1))));
 	}
 }

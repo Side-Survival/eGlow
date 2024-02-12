@@ -7,6 +7,7 @@ import me.MrGraycat.eglow.command.SubCommand;
 import me.MrGraycat.eglow.config.EGlowMessageConfig;
 import me.MrGraycat.eglow.data.EGlowPlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class VisibilityCommand extends SubCommand {
 
@@ -32,9 +33,11 @@ public class VisibilityCommand extends SubCommand {
 
 	@Override
 	public void perform(CommandSender sender, EGlowPlayer eGlowPlayer, String[] args) {
+		Player pSender = (sender instanceof Player player) ? player : null;
+
 		if (args.length >= 2) {
 			if (eGlowPlayer.getGlowVisibility().equals(EnumUtil.GlowVisibility.UNSUPPORTEDCLIENT)) {
-				ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.UNSUPPORTED_GLOW.get(), true);
+				ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.UNSUPPORTED_GLOW.get(pSender), true);
 				return;
 			}
 
@@ -57,7 +60,7 @@ public class VisibilityCommand extends SubCommand {
 				PacketUtil.forceUpdateGlow(eGlowPlayer);
 			}
 
-			ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.VISIBILITY_CHANGE.get(newVisibility.name()), true);
+			ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.VISIBILITY_CHANGE.get(pSender, newVisibility.name()), true);
 		} else {
 			switch (eGlowPlayer.getGlowVisibility()) {
 				case ALL:
@@ -75,7 +78,7 @@ public class VisibilityCommand extends SubCommand {
 			}
 
 			PacketUtil.forceUpdateGlow(eGlowPlayer);
-			ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.VISIBILITY_CHANGE.get(eGlowPlayer.getGlowVisibility().name()), true);
+			ChatUtil.sendMsg(sender, EGlowMessageConfig.Message.VISIBILITY_CHANGE.get(pSender, eGlowPlayer.getGlowVisibility().name()), true);
 		}
 	}
 }
